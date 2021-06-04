@@ -1,4 +1,4 @@
-<h1> Bienvenue sur la page de connexion non prise en compte pour l'instant </h1>
+<h1> Bienvenue sur la page de connexion</h1>
 
 <form action="<?= URL ?>connect/tryToConnect" method="POST">
   <div class="mb-3">

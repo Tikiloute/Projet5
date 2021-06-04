@@ -1,4 +1,4 @@
-<h1>Bienvenue sur la page de création de compte non prise en compte pour l'instant</h1>
+<h1>Bienvenue sur la page de création de compte</h1>
 
 <form action="<?= URL ?>connect/accountCreateOK" method="POST">
   <div class="mb-3">
