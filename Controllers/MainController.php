@@ -5,10 +5,12 @@ namespace Controllers;
 class MainController{
 
     private $mainManager;
+    private $products;
 
     public function __construct()
     {
         $this->mainManager = new \Models\MainManager();
+        $this->products = new \Models\ProductsManager();
     }
 
     protected function newPage($data)
@@ -36,6 +38,7 @@ class MainController{
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);
+        $this->products->test();
         print_r($datass);
     }
 

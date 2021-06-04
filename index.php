@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-require_once('Controllers/autoload.controller.php');
+require('Controllers/autoload.controller.php');
 
 //permet de bien pointer si plusieurs niveaux de dossier sont nécessaire (ex: si home/articles nous pointons vrs articles et que nous repassons sur accueil nous aurons accueil/home sans ce URL)
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));

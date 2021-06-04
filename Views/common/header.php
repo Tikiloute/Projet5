@@ -5,7 +5,7 @@
             <span class="fs-4 ms-3">Mrs Shopping !</span>
         </a>
 
-<?php require_once('views/common/menu.php') ?>
+<?php require_once('Views/common/menu.php') ?>
 
     </header>
 </div>
