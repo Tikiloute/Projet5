@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class ProductsManager{
+class ProductsManager  extends Model{
     public function test()
     {
         echo "hello world";

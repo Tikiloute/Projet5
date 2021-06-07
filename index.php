@@ -48,8 +48,8 @@ try{
                         $connectionController->createAccount();
                     break;
 
-                    case "accountCreateOK":
-                        $connectionController->accountCreateOK();
+                    case "accountCreated":
+                        $connectionController->accountCreated();
                     break;
 
                     default : $connectionController->connection();

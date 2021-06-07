@@ -4,13 +4,13 @@ namespace Controllers;
 
 class MainController{
 
-    private $mainManager;
-    private $products;
+    protected $products;
+    protected $user;
 
     public function __construct()
     {
-        $this->mainManager = new \Models\MainManager();
         $this->products = new \Models\ProductsManager();
+        $this->user = new \Models\Usermanager();
     }
 
     protected function newPage($data)
@@ -29,17 +29,13 @@ class MainController{
             "type" => "alert-success"
         ];
 
-        $datass = $this->mainManager->getDataX();
         $data_page = [
             "page_description" => "Accueil du site",
             "page_title" => "Accueil",
-            "datas" => $datass,
             "view" => "Views/accueil.view.php",
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);
-        $this->products->test();
-        print_r($datass);
     }
 
     public function page1()
