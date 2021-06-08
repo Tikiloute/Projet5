@@ -3,11 +3,13 @@
 namespace Models;
 
 class Usermanager  extends Model{
-    public function viewUser() : array
+
+    public function viewUser($login)// impossible à hinter ici (?array  ,  ?bool)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM utilisateur");
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE identifiant = :identifiant");
+        $stmt->bindParam(":identifiant", $login);
         $stmt->execute();
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 

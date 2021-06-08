@@ -40,8 +40,8 @@ try{
 
                 switch($url[1]){
 
-                    case "tryToConnect" :
-                        $connectionController->tryToConnect();
+                    case "connected" :
+                        $connectionController->connected();
                     break;
 
                     case "createAccount" :
@@ -57,6 +57,10 @@ try{
            }else{
             $connectionController->connection();
            }
+        break;
+
+        case "disconnect":
+            $connectionController->disconnect();
         break;
 
         default : throw new Exception("La page n'existe pas"); //on lance une nouvelle exception

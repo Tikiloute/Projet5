@@ -1,6 +1,6 @@
 <h1> Bienvenue sur la page de connexion</h1>
 
-<form action="<?= URL ?>connect/tryToConnect" method="POST">
+<form action="<?= URL ?>connect/connected" method="POST">
   <div class="mb-3">
     <label for="login" class="form-label">Votre identifiant</label>
     <input type="text" class="form-control" id="login" name="login">
@@ -12,3 +12,4 @@
   <button type="submit" class="btn btn-primary">Vous connectez</button>
   <a href="<?= URL ?>connect/createAccount" type="button" class="btn btn-success">Créer un compte</a>
 </form>
+

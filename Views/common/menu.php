@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light me-5">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,12 +18,19 @@
           </ul>
         </li>
         <li class="nav-item ms-2"><a href="<?= URL ?>cart" class="nav-link"><img src="<?= URL ?>public\assets\images\basket.png" width="50px" alt="caddie représentant le panier de client">Votre panier</a></li>
+        <?PHP
+        if(!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
+        ?>
+        <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2">Votre espace</a></li>
+        <li class="nav-item"><a href="<?= URL ?>disconnect" class="nav-link mt-2 ms-5">Se deconnecter</a></li>
+        <?php 
+        }else{
+        ?>
         <li class="nav-item"><a href="<?= URL ?>connect" class="nav-link mt-2 ms-5">Se connecter</a></li>
+        <?PHP
+        }
+        ?>
       </ul>
-      <form class="d-flex ms-2">
-        <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
-        <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
-      </form>
     </div>
   </div>
 </nav>
