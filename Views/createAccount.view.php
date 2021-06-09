@@ -6,15 +6,15 @@
     <input type="text" class="form-control" id="createAccountLogin" name="login">
   </div>
   <div class="mb-3">
-    <label for="createAccountName" class="form-label">Votre nom</label>
-    <input type="text" class="form-control" id="createAccountName" name="name">
-  </div>
-  <div class="mb-3">
     <label for="createAccountSurname" class="form-label">Votre prénom</label>
     <input type="text" class="form-control" id="createAccountSurname" name="surname">
   </div>
   <div class="mb-3">
-    <label for="createAccountAddress" class="form-label">Votre adresse (N'oubliez pas le code postal et la ville)</label>
+    <label for="createAccountName" class="form-label">Votre nom</label>
+    <input type="text" class="form-control" id="createAccountName" name="name">
+  </div>
+  <div class="mb-3">
+    <label for="createAccountAddress" class="form-label">Votre adresse (N'oubliez pas le code postal et la ville !)</label>
     <input type="text" class="form-control" id="createAccountAdress" name="address">
   </div>
   <div class="mb-3">

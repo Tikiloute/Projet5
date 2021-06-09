@@ -23,14 +23,6 @@ try{
             $mainController->home();
         break;
 
-        case "page1":
-            $mainController->page1();
-        break;
-
-        case "page2":
-            $mainController->page2();
-        break;
-
         case "cart":
             $mainController->panier();
         break;

@@ -13,7 +13,7 @@ class MainController{
         $this->user = new \Models\Usermanager();
     }
 
-    protected function newPage($data)
+    protected function newPage(array $data)
     {
         extract($data);
         ob_start();
@@ -38,28 +38,12 @@ class MainController{
         $this->newPage($data_page);
     }
 
-    public function page1()
-    {
-        $_SESSION["alert"] = [
-            "message" => "exemple de message d'alerte",
-            "type" => "alert-danger"
-        ];
-
-        $data_page = [
-            "page_description" => "Page 1",
-            "page_title" => "Page 1",
-            "view" => "Views/page1.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function page2()
+    public function connection()
     {
         $data_page = [
-            "page_description" => "Page 2",
-            "page_title" => "Page 2",
-            "view" => "Views/page2.view.php",
+            "page_description" => "Page de connexion",
+            "page_title" => "Page de connexion",
+            "view" => "Views/connexion.view.php",
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);
