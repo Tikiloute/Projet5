@@ -14,7 +14,7 @@
             <li><a class="dropdown-item" href="<?= URL ?>informatique">Informatique</a></li>
             <li><a class="dropdown-item" href="<?= URL ?>jeuxVideo">Jeux-vidéo</a></li>
             <li><a class="dropdown-item" href="<?= URL ?>electronique">Electronique</a></li>
-            <li><a class="dropdown-item" href="<?= URL ?>electronique">Musique</a></li>
+            <li><a class="dropdown-item" href="<?= URL ?>musique">Musique</a></li>
           </ul>
         </li>
         <li class="nav-item ms-2"><a href="<?= URL ?>cart" class="nav-link"><img src="<?= URL ?>public\assets\images\basket.png" width="50px" alt="caddie représentant le panier de client">Votre panier</a></li>

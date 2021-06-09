@@ -27,6 +27,22 @@ try{
             $mainController->panier();
         break;
 
+        case "informatique":
+            $mainController->informatique();
+        break;
+
+        case "jeuxVideo":
+            $mainController->jeuxVideo();
+        break;
+
+        case "electronique":
+            $mainController->electronique();
+        break;
+
+        case "musique":
+            $mainController->musique();
+        break;
+
         case "connect":
            if(!empty($url[1])){
 
