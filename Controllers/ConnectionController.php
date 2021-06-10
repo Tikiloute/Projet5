@@ -4,16 +4,7 @@ namespace Controllers;
 
 class ConnectionController extends MainController{
     
-    public function connection()
-    {
-        $data_page = [
-            "page_description" => "Page de connexion",
-            "page_title" => "Page de connexion",
-            "view" => "Views/connexion.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
+    protected $sessionUser;
 
     public function connected()
     {
@@ -24,9 +15,13 @@ class ConnectionController extends MainController{
         if(empty($_SESSION["connected"])){
             if(!empty($_POST["login"]) && !empty($_POST["password"]) && $userLogin !=  false){
                 if(password_verify($_POST["password"], $userLogin["password"]) === true){
+
                     $_SESSION["connected"] = true;
                     $_SESSION["login"]= $userLogin["identifiant"];
                     $_SESSION["password"]= $userLogin["password"];
+                    $_SESSION["idUser"]= $userLogin["id"];
+                    $panier = $this->products->cart($_SESSION["idUser"]);
+                    $countPanier = count($panier);
 
                     $_SESSION["alert"] = [
                         "message" => "Vous êtes bien connecté !",
@@ -36,6 +31,8 @@ class ConnectionController extends MainController{
                         "page_description" => "Espace personnel",
                         "page_title" => "Espace personnel",
                         "users" => $this->user->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
+                        "panier" => $panier,
+                        "countPanier" => $countPanier,
                         "view" => "Views/connected.view.php",
                         "template" => "Views/common/template.php"
                     ];
@@ -67,11 +64,16 @@ class ConnectionController extends MainController{
                 $this->newPage($data_page);
             }
         }elseif($_SESSION["connected"] === true){
+            $panier = $this->products->cart($_SESSION["idUser"]);
+            $countPanier = count($panier);
+            var_dump($panier);
             $data_page = [
                 "page_description" => "Page de connexion",
                 "page_title" => "Page de connexion",
                 "view" => "Views/connected.view.php",
                 "users" => $this->user->viewUser($_SESSION["login"]),
+                "panier" => $panier,
+                "countPanier" => $countPanier,
                 "template" => "Views/common/template.php"
             ];
             $this->newPage($data_page);
@@ -141,6 +143,7 @@ class ConnectionController extends MainController{
         unset($_SESSION["connected"]);
         unset($_SESSION["login"]);
         unset($_SESSION["password"]);
+        unset($_SESSION["idUser"]);
         $data_page = [
             "page_description" => "Page de connexion",
             "page_title" => "Page de connexion",
@@ -149,8 +152,5 @@ class ConnectionController extends MainController{
         ];
         $this->newPage($data_page);
     }
-
-    
-
     
 }
