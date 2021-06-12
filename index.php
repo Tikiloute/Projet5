@@ -9,6 +9,7 @@ define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : 
 
 $mainController = new \Controllers\MainController();
 $connectionController = new \Controllers\ConnectionController();
+$administratorController = new \Controllers\AdministratorController();
 
 try{
     if(empty($_GET['page'])){
@@ -58,6 +59,10 @@ try{
 
                     case "accountCreated":
                         $connectionController->accountCreated();
+                    break;
+
+                    case "stock":
+                        $administratorController->stock();
                     break;
 
                     default : $connectionController->connection();

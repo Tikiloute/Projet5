@@ -37,7 +37,7 @@ class ConnectionController extends MainController{
                         "template" => "Views/common/template.php"
                     ];
                     $this->newPage($data_page);
-                }else{ // si password_verify = false mais que le login est bon (userLogin = true) alors :
+                }else{ // si password_verify = false mais que le login existe (userLogin = true) alors :
                     $_SESSION["alert"] = [
                         "message" => "Le mot de passe est erroné",
                         "type" => "alert-danger"

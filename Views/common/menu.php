@@ -17,11 +17,11 @@
             <li><a class="dropdown-item" href="<?= URL ?>musique">Musique</a></li>
           </ul>
         </li>
-        <li class="nav-item ms-2"><a href="<?= URL ?>cart" class="nav-link"><img src="<?= URL ?>public\assets\images\basket.png" width="50px" alt="caddie représentant le panier de client">Votre panier</a></li>
+        <li class="nav-item me-2 ms-2"><a href="<?= URL ?>cart" class="nav-link"><img src="<?= URL ?>public\assets\images\basket.png" width="50px" alt="caddie représentant le panier de client">Votre panier</a></li>
         <?PHP
         if(!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
         ?>
-        <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2">Votre espace</a></li>
+        <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2"><img src="<?= URL ?>public\assets\images\profile.png" width="35px" alt="caddie représentant le panier de client">Votre espace</a></li>
         <li class="nav-item"><a href="<?= URL ?>disconnect" class="nav-link mt-2 ms-5">Se deconnecter</a></li>
         <?php 
         }else{
