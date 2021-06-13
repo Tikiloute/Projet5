@@ -65,6 +65,18 @@ try{
                         $administratorController->stock();
                     break;
 
+                    case "modifyAdministratorIdentify" :
+                        $administratorController->modifyAdministratorIdentify();
+                    break;
+
+                    case "modifyRole" :
+                        $administratorController->modifyRole();
+                    break;
+
+                    case "modifyProduct" :
+                        $administratorController->modifyProduct();
+                    break;
+
                     default : $connectionController->connection();
                 }
            }else{

@@ -4,10 +4,10 @@ namespace Models;
 
 class Usermanager  extends Model{
 
-    public function viewUser(mixed $login)// impossible à hinter ici (?array  ,  ?bool)
+    public function viewUser(mixed $id): mixed
     {
         $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE identifiant = :identifiant");
-        $stmt->bindParam(":identifiant", $login);
+        $stmt->bindParam(":identifiant", $id);
         $stmt->execute();
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -26,6 +26,15 @@ class Usermanager  extends Model{
         $stmt->bindParam(":code", $code);
         $stmt->execute();
         var_dump($stmt);
+    }
+
+    public function modifyAccountInfo(mixed $id, mixed $identifiant, mixed $password): void
+    {
+        $stm = $this->pdo->prepare("UPDATE utilisateur SET identifiant= :identifiant, password= :password WHERE id = :id");
+        $stm->bindParam(":identifiant", $identifiant);
+        $stm->bindParam(":password", $password);
+        $stm->bindParam(":id", $id);
+        $stm->execute();
     }
 
     

@@ -3,7 +3,6 @@
 <br>
 
 <?php 
-var_dump($users);
 if($users["role"] != "administrateur"){
     /**
      * Partie Client------------------------------------------------------------------------------------------------------------
@@ -29,13 +28,22 @@ if($users["role"] != "administrateur"){
                     <td class="tableauInfos text-center text-capitalize"><?= $users["prenom"]?></td>
                     <td class="tableauInfos text-center"><?= $users["adresse"]?></td>
                     <td class="tableauInfos text-center text-capitalize"><?= $users["mail"]?></td>
+                    <td><a href="<?= URL ?>connect/connected/modifyProfile" class="btn btn-outline-secondary" type="submit" value="Modifier vos informations" >Modifier vos informations</td>   
                 </tr>
             </table>
-            <form action="https://google.com">
-                <input class="btn btn-outline-secondary" type="submit" value="Modifier vos informations" />
-            </form>
+            <a href="<?= URL ?>connect/connected&billAddress" type="button" class="btn btn-success">Ajouter une adresse de facturation</a>
+            <?PHP
+            if(isset($_GET["billAddress"])){ // ajout de
+        ?>
+                <form class="mt-2" action="">
+                    <input placeholder="Votre adresse de facturation" type="text" name="" id="">
+                    <input class="btn btn-primary" type="submit" value="Validez">
+                </form>
+        <?php
+            }
+        ?>
         </div>
-        <a href="<?= URL ?>connect/connected" type="button" class="btn btn-success">Ajouter une adresse de facturation</a>
+        
         <!-- onclick ajouter un champs puis gérer le champs avec $_POST et un update de la bdd -->
     </div>
 
@@ -79,24 +87,28 @@ if($users["role"] != "administrateur"){
 ?>
     <br>
     <br>
-    <h3>Ajouter des produits</h3>
-    <a href="<?= URL ?>connect/addArticle" type="button" class="btn btn-success">Créer un produit</a>
+    <h4>Ajouter des produits</h4>
+    <a href="<?= URL ?>connect/addProduct" type="button" class="btn btn-success">Créer un produit</a>
     <br>
     <br>
-    <h3>Modifier le rôle d'un compte</h3>
+    <h4>Modifier le rôle d'un compte</h4>
     <a href="<?= URL ?>connect/modifyRole" type="button" class="btn btn-success">Modifier le rôle</a>
     <br>
     <br>
-    <h3>Créer une promotion</h3>
-    <a href="<?= URL ?>connect/modifyRole" type="button" class="btn btn-success">promotion</a>
+    <h4>Modifier les produits</h4>
+    <a href="<?= URL ?>connect/modifyProduct" type="button" class="btn btn-success">Modifier les produits</a>
     <br>
     <br>
-    <h3>Voir le chiffre d'affaire</h3>
-    <a href="<?= URL ?>connect/turnover" type="button" class="btn btn-success">chiffre d'affaire</a>
+    <h4>Voir le chiffre d'affaire</h4>
+    <a href="<?= URL ?>connect/turnover" type="button" class="btn btn-success">Chiffre d'affaire</a>
     <br>
     <br>
-    <h3>Voir le stock</h3>
-    <a href="<?= URL ?>connect/stock" type="button" class="btn btn-success">voir le stock</a>
+    <h4>Voir le stock</h4>
+    <a href="<?= URL ?>connect/stock" type="button" class="btn btn-success">Voir le stock</a>
+    <br>
+    <br>
+    <h4>Modifier vos identifiants</h4>
+    <a href="<?= URL ?>connect/modifyAdministratorIdentify" type="button" class="btn btn-success">Modifier vos identifiants</a>
 
 <?php
 /**

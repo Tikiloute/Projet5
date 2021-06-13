@@ -66,7 +66,6 @@ class ConnectionController extends MainController{
         }elseif($_SESSION["connected"] === true){
             $panier = $this->products->cart($_SESSION["idUser"]);
             $countPanier = count($panier);
-            var_dump($panier);
             $data_page = [
                 "page_description" => "Page de connexion",
                 "page_title" => "Page de connexion",
@@ -90,6 +89,7 @@ class ConnectionController extends MainController{
 
     public function createAccount()
     {
+        
         $data_page = [
             "page_description" => "Page de creation de compte",
             "page_title" => "Page de creation de compte",
