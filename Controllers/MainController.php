@@ -2,6 +2,9 @@
 
 namespace Controllers;
 
+use Models\ProductsManager;
+use Models\Usermanager;
+
 class MainController{
 
     protected $products;
@@ -9,8 +12,8 @@ class MainController{
 
     public function __construct()
     {
-        $this->products = new \Models\ProductsManager();
-        $this->user = new \Models\Usermanager();
+        $this->products = new ProductsManager();
+        $this->user = new Usermanager();
     }
 
     protected function newPage(array $data)

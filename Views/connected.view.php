@@ -7,7 +7,7 @@ if($users["role"] != "administrateur"){
     /**
      * Partie Client------------------------------------------------------------------------------------------------------------
      */
-    echo "<h2 class='text-center'>Bienvenue sur votre espace ".$_SESSION["login"].", ici vous pourrez modifier vos informations ";
+    echo "<h2 class='text-center'>Bienvenue sur votre espace ".$_SESSION["login"].", ici vous pourrez modifier vos informations <h2>";
     ?>
     <br>
     <br>

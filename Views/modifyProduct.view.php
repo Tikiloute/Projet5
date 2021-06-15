@@ -4,9 +4,12 @@
 <?php
 foreach($products as $product){
 ?>
-    <input type="text" name="name" value="<?= $product["nom"] ?>">
-    <textarea name="descrption" cols="30" rows="4" placeholder="<?= $product["description"] ?>" ><?= htmlspecialchars($product["description"]) ?></textarea>
-    <input type="number" name="price" value="<?= $product["prix"] ?>" ?>
+    <label for="nameProduct">Nom du produit : </label>
+    <input type="text" id="nameProduct" name="name" value="<?= $product["nom"] ?>">
+    <label for="descrptionPoduct">Description : </label>
+    <textarea name="descrption" cols="30" id="descrptionPoduct" rows="4" placeholder="<?= $product["description"] ?>" ><?= htmlspecialchars($product["description"]) ?></textarea>
+    <label for="priceProduct">Prix du produit : </label>
+    <input type="number" name="price" id="priceProduct" value="<?= $product["prix"] ?>" ?>
     <select name="category" >
         <option value="" selected disabled>Catégorie</option>
         <option value="informatique">informatique</option>

@@ -3,95 +3,96 @@ session_start();
 
 require('Controllers/autoload.controller.php');
 
+use Controllers\MainController;
+use Controllers\ConnectionController;
+use Controllers\AdministratorController;
+
 //permet de bien pointer si plusieurs niveaux de dossier sont nécessaire (ex: si home/articles nous pointons vrs articles et que nous repassons sur accueil nous aurons accueil/home sans ce URL)
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
 
+$mainController = new MainController();
+$connectionController = new ConnectionController();
+$administratorController = new AdministratorController();
 
-$mainController = new \Controllers\MainController();
-$connectionController = new \Controllers\ConnectionController();
-$administratorController = new \Controllers\AdministratorController();
-
-try{
-    if(empty($_GET['page'])){
+try {
+    if (empty($_GET['page'])) {
         $page = "accueil";
-    }else {
+    } else {
         $url = explode("/", filter_var($_GET["page"]), FILTER_SANITIZE_URL); //This filter allows all letters, digits and $-_.+!*'(),{}|\\^~[]`"><#%;/?:@&=
         $page = $url[0];
     }
 
-    switch($page){
+    switch ($page) {
         case "accueil":
             $mainController->home();
-        break;
+            break;
 
         case "cart":
             $mainController->panier();
-        break;
+            break;
 
         case "informatique":
             $mainController->informatique();
-        break;
+            break;
 
         case "jeuxVideo":
             $mainController->jeuxVideo();
-        break;
+            break;
 
         case "electronique":
             $mainController->electronique();
-        break;
+            break;
 
         case "musique":
             $mainController->musique();
-        break;
+            break;
 
         case "connect":
-           if(!empty($url[1])){
+           if (!empty($url[1])) {
 
-                switch($url[1]){
+                switch ($url[1]) {
 
                     case "connected" :
                         $connectionController->connected();
-                    break;
+                        break;
 
                     case "createAccount" :
                         $connectionController->createAccount();
-                    break;
+                        break;
 
                     case "accountCreated":
                         $connectionController->accountCreated();
-                    break;
+                        break;
 
                     case "stock":
                         $administratorController->stock();
-                    break;
+                        break;
 
                     case "modifyAdministratorIdentify" :
                         $administratorController->modifyAdministratorIdentify();
-                    break;
+                        break;
 
                     case "modifyRole" :
                         $administratorController->modifyRole();
-                    break;
+                        break;
 
                     case "modifyProduct" :
                         $administratorController->modifyProduct();
-                    break;
+                        break;
 
                     default : $connectionController->connection();
                 }
-           }else{
+           } else {
             $connectionController->connection();
            }
-        break;
+            break;
 
         case "disconnect":
             $connectionController->disconnect();
-        break;
+            break;
 
         default : throw new Exception("La page n'existe pas"); //on lance une nouvelle exception
     }
-} catch(Exception $e) {
+} catch (Exception $e) {
     $mainController->pageError($e->getMessage());
 }
-
-?>

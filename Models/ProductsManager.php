@@ -11,9 +11,10 @@ class ProductsManager  extends Model{
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
+        //stmt->closeCursor;
     }
 
-    public function allProducts(): array
+    public function allProducts(): array //limit offset !
     {
         $stmt = $this->pdo->prepare("SELECT * FROM produit");
         $stmt->execute();
@@ -21,11 +22,11 @@ class ProductsManager  extends Model{
         return $result;
     }
 
-    public function updateStock(mixed $stock, int $id): void
+    public function updateStock(int $stock, int $id): void
     {
         $stm = $this->pdo->prepare("UPDATE produit SET stock= :stock WHERE id = :id");
-        $stm->bindParam(":stock", $stock);
-        $stm->bindParam(":id", $id);
+        $stm->bindParam(":stock", $stock, \PDO::PARAM_INT);
+        $stm->bindParam(":id", $id, \PDO::PARAM_INT );
         $stm->execute();
     }
 
