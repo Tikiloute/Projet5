@@ -76,22 +76,30 @@ try {
                         $administratorController->modifyRole();
                         break;
 
+                    case "modifyRoleValidate" :
+                        $administratorController->validateRole();
+                        break;
+
                     case "modifyProduct" :
                         $administratorController->modifyProduct();
+                        break;
+
+                    case "productModified" :
+                        $administratorController->productModified();
                         break;
 
                     default : $connectionController->connection();
                 }
            } else {
-            $connectionController->connection();
+                $connectionController->connection();
            }
-            break;
+                break;
 
         case "disconnect":
             $connectionController->disconnect();
             break;
 
-        default : throw new Exception("La page n'existe pas"); //on lance une nouvelle exception
+        default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception
     }
 } catch (Exception $e) {
     $mainController->pageError($e->getMessage());

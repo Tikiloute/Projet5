@@ -7,13 +7,17 @@ use Models\Usermanager;
 
 class MainController{
 
-    protected $products;
-    protected $user;
+    const ALERT_DANGER = "alert-danger"; //red_alert
+    const ALERT_SUCCESS = "alert-success";//green_alert
+    const ALERT_WARNING = "alert-warning";//orange_alert
+
+    protected $productsManagager;
+    protected $usermanager;
 
     public function __construct()
     {
-        $this->products = new ProductsManager();
-        $this->user = new Usermanager();
+        $this->productsManagager = new ProductsManager();
+        $this->usermanager = new Usermanager();
     }
 
     protected function newPage(array $data)

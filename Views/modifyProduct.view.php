@@ -1,25 +1,28 @@
 <h1>Modifiez vos produits ici !</h1>
 
-<form action="#" method="POST">
 <?php
-foreach($products as $product){
+foreach ($productCategory as $product){
 ?>
-    <label for="nameProduct">Nom du produit : </label>
-    <input type="text" id="nameProduct" name="name" value="<?= $product["nom"] ?>">
-    <label for="descrptionPoduct">Description : </label>
-    <textarea name="descrption" cols="30" id="descrptionPoduct" rows="4" placeholder="<?= $product["description"] ?>" ><?= htmlspecialchars($product["description"]) ?></textarea>
-    <label for="priceProduct">Prix du produit : </label>
-    <input type="number" name="price" id="priceProduct" value="<?= $product["prix"] ?>" ?>
-    <select name="category" >
-        <option value="" selected disabled>Catégorie</option>
-        <option value="informatique">informatique</option>
-        <option value="jeux-vidéo">jeux-vidéo</option>
-        <option value="électronique">électronique</option>
-        <option value="Musique">Musique</option>
+<form action="<?= URL ?>connect/productModified" method="POST">
+    <input type="text" name="name" id="" value="<?= $product["nom"] ?>">
+    <textarea name="description" id="" cols="50" rows="1"><?=$product["description"]?></textarea>
+    <input type="number" name="price" id="" value="<?= $product["prix"] ?>">
+    <input type="hidden" name="id" value="<?= $product["idProduit"] ?>">
+    <select name="category_name" id="">
+    <option value="" selected><?= $product["category_name"]?></option>
+<?php
+foreach ($categories as $category){
+    if ($category['category_name'] !== $product["category_name"]){
+?>
+    <option value="<?= $category['id']?>"><?= $category['category_name']?></option>
+<?php
+    }
+}
+?>
     </select>
-    <input type="submit" class="btn btn-primary" value="Valider">
-    <br>
+    <input class="btn btn-primary" type="submit" value="<?= $product['idProduit']?>">
+</form>
+<br>
 <?php 
 }
 ?>
-</form>

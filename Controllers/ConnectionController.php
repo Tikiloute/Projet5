@@ -9,7 +9,7 @@ class ConnectionController extends MainController{
     public function connected()
     {
         if (!empty($_POST["login"])){
-            $userLogin = $this->user->viewUser($_POST["login"]);// bool = false si n'existe pas; array si existe
+            $userLogin = $this->usermanager->viewUser($_POST["login"]);// bool = false si n'existe pas; array si existe
         }
 
         if (empty($_SESSION["connected"])){
@@ -19,17 +19,17 @@ class ConnectionController extends MainController{
                     $_SESSION["connected"] = true;
                     $_SESSION["login"]= $userLogin["identifiant"];
                     $_SESSION["idUser"]= $userLogin["id"];
-                    $panier = $this->products->cart($_SESSION["idUser"]);
+                    $panier = $this->productsManagager->cart($_SESSION["idUser"]);
                     $countPanier = count($panier);
 
                     $_SESSION["alert"] = [
                         "message" => "Vous êtes bien connecté !",
-                        "type" => "alert-success"
+                        "type" => SELF::ALERT_SUCCESS
                     ];
                     $data_page = [
                         "page_description" => "Espace personnel",
                         "page_title" => "Espace personnel",
-                        "users" => $this->user->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
+                        "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
                         "panier" => $panier,
                         "countPanier" => $countPanier,
                         "view" => "Views/connected.view.php",
@@ -39,7 +39,7 @@ class ConnectionController extends MainController{
                 } else { // si password_verify = false mais que le login existe (userLogin = true) alors :
                     $_SESSION["alert"] = [
                         "message" => "Le mot de passe est erroné",
-                        "type" => "alert-danger"
+                        "type" => SELF::ALERT_DANGER
                     ];
                     $data_page = [
                         "page_description" => "Page de connexion",
@@ -52,7 +52,7 @@ class ConnectionController extends MainController{
             } else {
                 $_SESSION["alert"] = [
                     "message" => "Mauvais mot de passe et / ou identifiant",
-                    "type" => "alert-danger"
+                    "type" => SELF::ALERT_DANGER
                 ];
                 $data_page = [
                     "page_description" => "Page de connexion",
@@ -63,13 +63,13 @@ class ConnectionController extends MainController{
                 $this->newPage($data_page);
             }
         } elseif ($_SESSION["connected"] === true){
-            $panier = $this->products->cart($_SESSION["idUser"]);
+            $panier = $this->productsManagager->cart($_SESSION["idUser"]);
             $countPanier = count($panier);
             $data_page = [
                 "page_description" => "Page de connexion",
                 "page_title" => "Page de connexion",
                 "view" => "Views/connected.view.php",
-                "users" => $this->user->viewUser($_SESSION["login"]),
+                "users" => $this->usermanager->viewUser($_SESSION["login"]),
                 "panier" => $panier,
                 "countPanier" => $countPanier,
                 "template" => "Views/common/template.php"
@@ -105,21 +105,21 @@ class ConnectionController extends MainController{
                 $code = rand(1, 1000000);
                 $_SESSION["alert"] = [
                     "message" => "Compte crée, code : ".$code."veuillez le valider avec le lien présent dans votre boite mail",
-                    "type" => "alert-success"
+                    "type" => SELF::ALERT_SUCCESS
                 ];
                 $mdp = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                $this->user->createAccount($_POST["login"], $mdp, $_POST["name"], $_POST["surname"], $_POST["mail"], $_POST["address"], $code);
+                $this->usermanager->createAccount($_POST["login"], $mdp, $_POST["name"], $_POST["surname"], $_POST["mail"], $_POST["address"], $code);
             } else {
                 $_SESSION["alert"] = [
                     "message" => "Les deux mots de passe ne correspondent pas",
-                    "type" => "alert-danger"
+                    "type" => SELF::ALERT_DANGER
                 ];
                 //voir en js pour faire correspondre les deux mdp, en l'état les champs déjà inscrit disparaissent (normal)
             }
         } else {
             $_SESSION["alert"] = [
                 "message" => "Veuillez remplir tous les champs !",
-                "type" => "alert-danger"
+                "type" => SELF::ALERT_DANGER
             ];
         }
         // $destinataire = $_POST["mail"];
