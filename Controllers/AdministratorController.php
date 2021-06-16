@@ -7,14 +7,14 @@ class AdministratorController  extends MainController{
     {
         if (isset($_POST["addStock"])){
             $stock = $_POST["addStock"] + $_GET['stock'];
-            $this->productsManagager->updateStock($stock, $_GET["id"]);
-            header("location connect/stock");
+            $this->productsManager->updateStock($stock, $_GET["id"]);
+           // header("location connect/stock");
         }
-        $productsManagager = $this->productsManagager->allProducts();
+        $productsManager = $this->productsManager->allProducts();
         $data_page = [
             "page_description" => "Espace personnel",
             "page_title" => "Espace personnel",
-            "produits" => $productsManagager,
+            "produits" => $productsManager,
             "view" => "Views/stock.view.php",
             "template" => "Views/common/template.php"
         ];
@@ -116,40 +116,15 @@ class AdministratorController  extends MainController{
 
     public function modifyProduct()
     {
-        $productCategory = $this->productsManagager->product_category();
-        $categories = $this->productsManagager->category();
-        var_dump($productCategory);
-        $data_page = [
-            "page_description" => "Espace personnel",
-            "page_title" => "Espace personnel",
-            "productCategory" => $productCategory,
-            "categories" => $categories,
-            "view" => "Views/modifyProduct.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function productModified()
-    {
         if (isset($_POST["name"],$_POST["description"], $_POST["price"], $_POST["category_name"],  $_POST["id"] )){
-            $this->productsManagager->updateProduct($_POST["name"], $_POST["description"], $_POST["price"],$_POST["category_name"] , $_POST["id"]);
-            header("location connect/modifyProduct");
+            $this->productsManager->updateProduct($_POST["name"], $_POST["description"], $_POST["price"],$_POST["category_name"] , $_POST["id"]);
             $_SESSION["alert"] = [
-                "message" => "La modification du produits est effectué",
+                "message" => "La modification du produit est effectuée",
                 "type" => SELF::ALERT_SUCCESS
             ];
-        } else {
-            $_SESSION["alert"] = [
-                "message" => "La modification du produits n'a pas fonctionné",
-                "type" => SELF::ALERT_DANGER
-            ];
         }
-        $productCategory = $this->productsManagager->product_category();
-        $categories = $this->productsManagager->category();
-        var_dump($_POST["id"]);
-        var_dump($_POST["category_name"]);
-
+        $productCategory = $this->productsManager->product_category();
+        $categories = $this->productsManager->category();
         $data_page = [
             "page_description" => "Espace personnel",
             "page_title" => "Espace personnel",
@@ -161,5 +136,36 @@ class AdministratorController  extends MainController{
         $this->newPage($data_page);
     }
 
+    public function addProduct()
+    {
+        $productCategory = $this->productsManager->product_category();
+        $categories = $this->productsManager->category();
+        if(!empty($_POST["name"]) && !empty($_POST["description"])  && !empty($_POST["stock"]) && !empty($_FILES["image"]) && !empty($_POST["price"]) && !empty($_POST["category_name"])){
+            $maxSize = 2097152;
+            if($_FILES["image"]["size"] <= $maxSize){
+                move_uploaded_file($_FILES["image"]["tmp_name"], "public\assets\images\\".$_FILES["image"]["name"]);
+                $this->productsManager->addProduct($_POST["name"], $_POST["description"], $_POST["stock"], $_FILES["image"]["name"], $_POST["price"], $_POST["category_name"]);
+                $_SESSION["alert"] = [
+                    "message" => "La création du produit est effectuée",
+                    "type" => SELF::ALERT_SUCCESS
+                ];
+            } else {
+                $_SESSION["alert"] = [
+                    "message" => "La taille de l'image ne doit pas dépasser les 2 méga-octets",
+                    "type" => SELF::ALERT_DANGER
+                ];
+            }
+        };
+        var_dump($_FILES["image"]);
+        $data_page = [
+            "page_description" => "Espace personnel",
+            "page_title" => "Espace personnel",
+            "productCategory" => $productCategory,
+            "categories" => $categories,
+            "view" => "Views/addProduct.view.php",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
+    }
 
 }

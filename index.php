@@ -85,7 +85,11 @@ try {
                         break;
 
                     case "productModified" :
-                        $administratorController->productModified();
+                        $administratorController->modifyProduct();
+                        break;
+
+                    case "addProduct" :
+                        $administratorController->addProduct();
                         break;
 
                     default : $connectionController->connection();

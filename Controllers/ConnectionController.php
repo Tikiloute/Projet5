@@ -19,7 +19,7 @@ class ConnectionController extends MainController{
                     $_SESSION["connected"] = true;
                     $_SESSION["login"]= $userLogin["identifiant"];
                     $_SESSION["idUser"]= $userLogin["id"];
-                    $panier = $this->productsManagager->cart($_SESSION["idUser"]);
+                    $panier = $this->productsManager->cart($_SESSION["idUser"]);
                     $countPanier = count($panier);
 
                     $_SESSION["alert"] = [
@@ -63,7 +63,7 @@ class ConnectionController extends MainController{
                 $this->newPage($data_page);
             }
         } elseif ($_SESSION["connected"] === true){
-            $panier = $this->productsManagager->cart($_SESSION["idUser"]);
+            $panier = $this->productsManager->cart($_SESSION["idUser"]);
             $countPanier = count($panier);
             $data_page = [
                 "page_description" => "Page de connexion",

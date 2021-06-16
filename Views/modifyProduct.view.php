@@ -4,25 +4,39 @@
 foreach ($productCategory as $product){
 ?>
 <form action="<?= URL ?>connect/productModified" method="POST">
-    <input type="text" name="name" id="" value="<?= $product["nom"] ?>">
-    <textarea name="description" id="" cols="50" rows="1"><?=$product["description"]?></textarea>
-    <input type="number" name="price" id="" value="<?= $product["prix"] ?>">
-    <input type="hidden" name="id" value="<?= $product["idProduit"] ?>">
-    <select name="category_name" id="">
-    <option value="" selected><?= $product["category_name"]?></option>
+    <label for="modifyName" class="form-label">Nom du produit</label>
+    <input class="form-control" type="text" name="name" id="modifyName" value="<?= $product["nom"] ?>">
+<br>
+    <label for="modifyDescription" class="form-label">Description</label>
+    <textarea class="form-control" name="description" id="modifyDescription" cols="50" rows="3"><?=$product["description"]?></textarea>
+<br>
+    <label for="modifyPrice" class="form-label">Prix</label>
+    <input class="form-control" type="number" name="price" id="modifyPrice" value="<?= $product["prix"] ?>">
+<br>
+    <input class="form-control" type="hidden" name="id" value="<?= $product["idProduit"] ?>">
+
+    <label for="modifyCategory" class="form-label">Catégorie</label>
+    <select class="form-control" name="category_name" id="modifyCategory">
 <?php
 foreach ($categories as $category){
-    if ($category['category_name'] !== $product["category_name"]){
+    if ($category['category_name'] === $product["category_name"]){
+?>
+    <option value="<?= $category['id']?>" selected><?= $product["category_name"]?></option>
+<?php
+    } else {
 ?>
     <option value="<?= $category['id']?>"><?= $category['category_name']?></option>
-<?php
+<?php        
     }
 }
 ?>
     </select>
-    <input class="btn btn-primary" type="submit" value="<?= $product['idProduit']?>">
+    <br>
+    <input class="btn btn-primary" type="submit" value="Modifiez">
 </form>
 <br>
+<hr>
+
 <?php 
 }
 ?>

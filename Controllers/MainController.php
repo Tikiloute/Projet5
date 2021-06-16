@@ -11,12 +11,12 @@ class MainController{
     const ALERT_SUCCESS = "alert-success";//green_alert
     const ALERT_WARNING = "alert-warning";//orange_alert
 
-    protected $productsManagager;
+    protected $productsManager;
     protected $usermanager;
 
     public function __construct()
     {
-        $this->productsManagager = new ProductsManager();
+        $this->productsManager = new ProductsManager();
         $this->usermanager = new Usermanager();
     }
 

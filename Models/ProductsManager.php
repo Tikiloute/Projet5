@@ -49,16 +49,30 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function updateProduct($name, $description, $price, $id_category , $id): void
+    public function updateProduct(mixed $name, mixed $description, int $price, int $id_category , int $id): void
     {
-        $stm = $this->pdo->prepare("UPDATE produit SET nom= :nom, description= :description, prix= :price, id_category= :id_category WHERE id = :id");
-        $stm->bindParam(":nom", $name, \PDO::PARAM_STR_CHAR);
-        $stm->bindParam(":description", $description, \PDO::PARAM_STR_CHAR );
-        $stm->bindParam(":price", $price, \PDO::PARAM_INT);
-        $stm->bindParam(":id_category", $id_category, \PDO::PARAM_INT);
-        $stm->bindParam(":id", $id, \PDO::PARAM_INT );
-        $stm->execute();
-        $stm->closeCursor();
+        $stmt = $this->pdo->prepare("UPDATE produit SET nom= :nom, description= :description, prix= :price, id_category= :id_category WHERE id = :id");
+        $stmt->bindParam(":nom", $name, \PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":description", $description, \PDO::PARAM_STR_CHAR );
+        $stmt->bindParam(":price", $price, \PDO::PARAM_INT);
+        $stmt->bindParam(":id_category", $id_category, \PDO::PARAM_INT);
+        $stmt->bindParam(":id", $id, \PDO::PARAM_INT );
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function addProduct(mixed $name, mixed $description, int $stock, $image, int $price, int $id_category)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO produit (nom, description, stock, image, prix, id_category) VALUES (:nom, :description, :stock, :image, :prix, :id_category)");
+        $stmt->bindParam(":nom", $name, \PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":description", $description, \PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":stock", $stock, \PDO::PARAM_INT);
+        $stmt->bindParam(":image", $image);
+        $stmt->bindParam(":prix", $price, \PDO::PARAM_INT);
+        $stmt->bindParam(":id_category", $id_category, \PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+
     }
 
 }
