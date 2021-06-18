@@ -13,7 +13,7 @@
 <body>
     <?php require_once('Views/common/header.php') ?>
 
-<!-- ici on créer une alert en dessous du menu et au dessus du contenu -->
+<!-- ici on créer une poteitielle alert en dessous du menu et au dessus du contenu -->
     <div class="container">
         <?php
             if(!empty($_SESSION["alert"])){

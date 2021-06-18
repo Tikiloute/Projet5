@@ -14,6 +14,7 @@ class MainController{
     protected $productsManager;
     protected $usermanager;
 
+
     public function __construct()
     {
         $this->productsManager = new ProductsManager();
@@ -31,10 +32,6 @@ class MainController{
 
     public function home()
     {
-        $_SESSION["alert"] = [
-            "message" => "exemple de message d'alerte",
-            "type" => "alert-success"
-        ];
 
         $data_page = [
             "page_description" => "Accueil du site",

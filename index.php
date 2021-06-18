@@ -6,13 +6,22 @@ require('Controllers/autoload.controller.php');
 use Controllers\MainController;
 use Controllers\ConnectionController;
 use Controllers\AdministratorController;
+use Controllers\ProductController;
+use Models\ProductsManager;
 
 //permet de bien pointer si plusieurs niveaux de dossier sont nécessaire (ex: si home/articles nous pointons vrs articles et que nous repassons sur accueil nous aurons accueil/home sans ce URL)
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
 
+
 $mainController = new MainController();
 $connectionController = new ConnectionController();
 $administratorController = new AdministratorController();
+$productController = new ProductController();
+$productsManager = new ProductsManager();
+
+define("CATEGORY", $productsManager->category());
+
+//variable globale category
 
 try {
     if (empty($_GET['page'])) {
@@ -32,7 +41,7 @@ try {
             break;
 
         case "informatique":
-            $mainController->informatique();
+            $mainController->informatique();//page?category
             break;
 
         case "jeuxVideo":
@@ -101,6 +110,10 @@ try {
 
         case "disconnect":
             $connectionController->disconnect();
+            break;
+
+        case "products":
+            $productController->showProducts();
             break;
 
         default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception

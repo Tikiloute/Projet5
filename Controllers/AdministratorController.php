@@ -8,7 +8,6 @@ class AdministratorController  extends MainController{
         if (isset($_POST["addStock"])){
             $stock = $_POST["addStock"] + $_GET['stock'];
             $this->productsManager->updateStock($stock, $_GET["id"]);
-           // header("location connect/stock");
         }
         $productsManager = $this->productsManager->allProducts();
         $data_page = [
@@ -116,15 +115,15 @@ class AdministratorController  extends MainController{
 
     public function modifyProduct()
     {
-        if (isset($_POST["name"],$_POST["description"], $_POST["price"], $_POST["category_name"],  $_POST["id"] )){
+        $productCategory = $this->productsManager->product_category();
+        $categories = $this->productsManager->category();
+        if (isset($_POST["name"],$_POST["description"], $_POST["price"], $_POST["category_name"],  $_POST["id"])){
             $this->productsManager->updateProduct($_POST["name"], $_POST["description"], $_POST["price"],$_POST["category_name"] , $_POST["id"]);
             $_SESSION["alert"] = [
                 "message" => "La modification du produit est effectuée",
                 "type" => SELF::ALERT_SUCCESS
             ];
         }
-        $productCategory = $this->productsManager->product_category();
-        $categories = $this->productsManager->category();
         $data_page = [
             "page_description" => "Espace personnel",
             "page_title" => "Espace personnel",
@@ -140,9 +139,9 @@ class AdministratorController  extends MainController{
     {
         $productCategory = $this->productsManager->product_category();
         $categories = $this->productsManager->category();
-        if(!empty($_POST["name"]) && !empty($_POST["description"])  && !empty($_POST["stock"]) && !empty($_FILES["image"]) && !empty($_POST["price"]) && !empty($_POST["category_name"])){
-            $maxSize = 2097152;
-            if($_FILES["image"]["size"] <= $maxSize){
+        if (!empty($_POST["name"]) && !empty($_POST["description"])  && !empty($_POST["stock"]) && !empty($_FILES["image"]) && !empty($_POST["price"]) && !empty($_POST["category_name"])){
+            $maxSize = 2097152; // représente 2 méga octets
+            if ($_FILES["image"]["size"] <= $maxSize){
                 move_uploaded_file($_FILES["image"]["tmp_name"], "public\assets\images\\".$_FILES["image"]["name"]);
                 $this->productsManager->addProduct($_POST["name"], $_POST["description"], $_POST["stock"], $_FILES["image"]["name"], $_POST["price"], $_POST["category_name"]);
                 $_SESSION["alert"] = [
@@ -156,7 +155,6 @@ class AdministratorController  extends MainController{
                 ];
             }
         };
-        var_dump($_FILES["image"]);
         $data_page = [
             "page_description" => "Espace personnel",
             "page_title" => "Espace personnel",

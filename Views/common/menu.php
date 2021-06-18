@@ -11,20 +11,23 @@
             Toutes les catégories
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="<?= URL ?>informatique">Informatique</a></li>
-            <li><a class="dropdown-item" href="<?= URL ?>jeuxVideo">Jeux-vidéo</a></li>
-            <li><a class="dropdown-item" href="<?= URL ?>electronique">Electronique</a></li>
-            <li><a class="dropdown-item" href="<?= URL ?>musique">Musique</a></li>
+<?php      
+        foreach (CATEGORY as $categorie){ //ici on utilise la constante CATEGORY
+?>
+           <li><a class="dropdown-item" href="<?= URL."products&category=".$categorie["id"] ?>"><?= $categorie["category_name"]?></a></li>
+<?php 
+        }
+?>
           </ul>
         </li>
         <li class="nav-item me-2 ms-2"><a href="<?= URL ?>cart" class="nav-link"><img src="<?= URL ?>public\assets\images\basket.png" width="50px" alt="caddie représentant le panier de client">Votre panier</a></li>
         <?PHP
-        if(!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
+        if (!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
         ?>
         <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2"><img src="<?= URL ?>public\assets\images\profile.png" width="35px" alt="caddie représentant le panier de client">Votre espace</a></li>
         <li class="nav-item"><a href="<?= URL ?>disconnect" class="nav-link mt-2 ms-5">Se deconnecter</a></li>
         <?php 
-        }else{
+        } else {
         ?>
         <li class="nav-item"><a href="<?= URL ?>connect" class="nav-link mt-2 ms-5">Se connecter</a></li>
         <?PHP

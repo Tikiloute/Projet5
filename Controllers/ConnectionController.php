@@ -17,8 +17,8 @@ class ConnectionController extends MainController{
                 if (password_verify($_POST["password"], $userLogin["password"]) === true){
 
                     $_SESSION["connected"] = true;
-                    $_SESSION["login"]= $userLogin["identifiant"];
-                    $_SESSION["idUser"]= $userLogin["id"];
+                    $_SESSION["login"] = $userLogin["identifiant"];
+                    $_SESSION["idUser"] = $userLogin["id"];
                     $panier = $this->productsManager->cart($_SESSION["idUser"]);
                     $countPanier = count($panier);
 
@@ -36,6 +36,7 @@ class ConnectionController extends MainController{
                         "template" => "Views/common/template.php"
                     ];
                     $this->newPage($data_page);
+
                 } else { // si password_verify = false mais que le login existe (userLogin = true) alors :
                     $_SESSION["alert"] = [
                         "message" => "Le mot de passe est erroné",
@@ -62,7 +63,7 @@ class ConnectionController extends MainController{
                 ];
                 $this->newPage($data_page);
             }
-        } elseif ($_SESSION["connected"] === true){
+        } else {
             $panier = $this->productsManager->cart($_SESSION["idUser"]);
             $countPanier = count($panier);
             $data_page = [
@@ -72,14 +73,6 @@ class ConnectionController extends MainController{
                 "users" => $this->usermanager->viewUser($_SESSION["login"]),
                 "panier" => $panier,
                 "countPanier" => $countPanier,
-                "template" => "Views/common/template.php"
-            ];
-            $this->newPage($data_page);
-        } else {
-            $data_page = [
-                "page_description" => "Page de connexion",
-                "page_title" => "Page de connexion",
-                "view" => "Views/connexion.view.php",
                 "template" => "Views/common/template.php"
             ];
             $this->newPage($data_page);
