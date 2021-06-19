@@ -15,7 +15,6 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
         
         return $result;
-
     }
 
     public function allProducts(): array //limit offset pour la pagination!
@@ -28,13 +27,24 @@ class ProductsManager  extends Model{
         return $result;
     }
 
+    public function showOneProduct(int $id): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT );
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
     public function updateStock(int $stock, int $id): void
     {
-        $stm = $this->pdo->prepare("UPDATE produit SET stock= :stock WHERE id = :id");
-        $stm->bindParam(":stock", $stock, PDO::PARAM_INT);
-        $stm->bindParam(":id", $id, PDO::PARAM_INT );
-        $stm->execute();
-        $stm->closeCursor();
+        $stmt = $this->pdo->prepare("UPDATE produit SET stock= :stock WHERE id = :id");
+        $stmt->bindParam(":stock", $stock, PDO::PARAM_INT);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT );
+        $stmt->execute();
+        $stmt->closeCursor();
     }
 
     public function category(): array
@@ -75,8 +85,16 @@ class ProductsManager  extends Model{
         $stmt->bindParam(":nom", $name, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":description", $description, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":stock", $stock, PDO::PARAM_INT);
-        $stmt->bindParam(":image", $image);
+        $stmt->bindParam(":image", $image, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":prix", $price, PDO::PARAM_INT);
+        $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function countCategory($category)
+    {
+        $stmt = $this->pdo->prepare(("SELECT COUNT(*) FROM produit WHERE id_category = :id_category"));
         $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();

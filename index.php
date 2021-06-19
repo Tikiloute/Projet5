@@ -113,7 +113,13 @@ try {
             break;
 
         case "products":
+            
             $productController->showProducts();
+            break;
+
+        case "product":
+
+            $productController->showOneProduct();
             break;
 
         default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception

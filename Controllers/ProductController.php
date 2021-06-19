@@ -7,6 +7,7 @@ class ProductController  extends MainController{
     {
         if(!empty($_GET["category"])){
             $allProducts = $this->productsManager->allProducts();
+           // $countByCategory = $this->productsManager->countCategory($)
         } else {
             $_SESSION["alert"] = [
                 "message" => "Cette page n'existe pas !",
@@ -33,7 +34,18 @@ class ProductController  extends MainController{
         } 
     }
 
+    public function showOneProduct()
+    {
+        $oneProduct = $this->productsManager->showOneProduct($_GET["id"]);
 
-
+        $data_page = [
+            "page_description" => "Espace personnel",
+            "page_title" => "Espace personnel",
+            "oneProduct" => $oneProduct,
+            "view" => "Views/oneProduct.view.php",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
+    }
 
 }
