@@ -22,26 +22,49 @@ if($users["role"] != "administrateur"){
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse email"?></td>
+<?php 
+    if (!empty($users["adresse_de_facturation"])){
+?>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse de facturation" ?></td>
+<?php 
+    }
+?>
                 </tr>
                 <tr>
                     <td class="tableauInfos text-center text-capitalize"><?= $users["nom"]?></td>
                     <td class="tableauInfos text-center text-capitalize"><?= $users["prenom"]?></td>
                     <td class="tableauInfos text-center"><?= $users["adresse"]?></td>
                     <td class="tableauInfos text-center text-capitalize"><?= $users["mail"]?></td>
+<?php 
+    if (!empty($users["adresse_de_facturation"])){
+?>
+                    <td class="tableauInfos text-center text-capitalize"><?= $users["adresse_de_facturation"]?></td>
+<?php 
+    }
+?>
+
                     <td><a href="<?= URL ?>connect/connected/modifyProfile" class="btn btn-outline-secondary" type="submit" value="Modifier vos informations" >Modifier vos informations</td>   
                 </tr>
             </table>
+<?php 
+    if(empty($users["adresse_de_facturation"])){ // ajout de
+?>
             <a href="<?= URL ?>connect/connected&billAddress" type="button" class="btn btn-success">Ajouter une adresse de facturation</a>
-            <?PHP
-            if(isset($_GET["billAddress"])){ // ajout de
-        ?>
-                <form class="mt-2" action="">
-                    <input placeholder="Votre adresse de facturation" type="text" name="" id="">
+<?php 
+    } else {
+?>
+            <a href="<?= URL ?>connect/connected&billAddress" type="button" class="btn btn-success">Modifiez votre adresse de facturation</a>
+<?php
+ } 
+    if(isset($_GET["billAddress"])){ // ajout de
+?>
+                <form class="mt-2" action="<?= URL ?>connect/connected/billAddress&updateBillAddress=true" method="POST">
+                    <input placeholder="Votre adresse de facturation" type="text" name="billAddress" id="billAddress">
                     <input class="btn btn-primary" type="submit" value="Validez">
                 </form>
-        <?php
-            }
-        ?>
+<?php
+    }
+?>
         </div>
         
         <!-- onclick ajouter un champs puis gérer le champs avec $_POST et un update de la bdd -->

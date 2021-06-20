@@ -62,6 +62,16 @@ try {
                 switch ($url[1]) {
 
                     case "connected" :
+                        if (!empty($url[2])){
+                            switch ($url[2]) {
+
+                                case "billAddress" : 
+                                    $administratorController->addBillAddress();
+                                    break;
+                                
+                                default : $connectionController->connected();
+                            }
+                        }
                         $connectionController->connected();
                         break;
 

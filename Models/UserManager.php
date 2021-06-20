@@ -9,7 +9,7 @@ class Usermanager  extends Model{
     public function viewUser(mixed $id): mixed
     {
         $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE identifiant = :identifiant");
-        $stmt->bindParam(":identifiant", $id , PDO::PARAM_INT);
+        $stmt->bindParam(":identifiant", $id , PDO::PARAM_STR_CHAR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -46,6 +46,15 @@ class Usermanager  extends Model{
         $stmt = $this->pdo->prepare("UPDATE utilisateur SET role= :role WHERE identifiant = :login");
         $stmt->bindParam(":role", $role, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":login", $login , PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function addBillAddress(mixed $billAddress, int $id): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE utilisateur SET adresse_de_facturation= :billAddress WHERE id = :id");
+        $stmt->bindParam(":billAddress", $billAddress, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":id", $id , PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     }

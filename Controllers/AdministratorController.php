@@ -7,7 +7,18 @@ class AdministratorController  extends MainController{
     {
         if (isset($_POST["addStock"])){
             $stock = $_POST["addStock"] + $_GET['stock'];
-            $this->productsManager->updateStock($stock, $_GET["id"]);
+            if ($stock >= 0){
+                $this->productsManager->updateStock($stock, $_GET["id"]);
+                $_SESSION["alert"] = [
+                    "message" => "Stock mis à jour !",
+                    "type" => SELF::ALERT_SUCCESS
+                ];
+            } else {
+                $_SESSION["alert"] = [
+                    "message" => "Vous ne pouvez pas avoir un stock négatif !",
+                    "type" => SELF::ALERT_DANGER
+                ];
+            }
         }
         $productsManager = $this->productsManager->allProducts();
         $data_page = [
@@ -164,6 +175,30 @@ class AdministratorController  extends MainController{
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);
+    }
+
+    public function addBillAddress()
+    {
+        $user = $this->usermanager->viewUser($_SESSION["login"]);
+        if ($_GET["updateBillAddress"] = true && !empty($_POST["billAddress"])){
+            if ($user["adresse_de_facturation"] !== $_POST["billAddress"]){
+                $this->usermanager->addBillAddress($_POST["billAddress"], $_SESSION["idUser"]);
+                $_SESSION["alert"] = [
+                    "message" => "Adresse de facturation mise à jour !",
+                    "type" => SELF::ALERT_SUCCESS
+                ];
+            } else {
+                $_SESSION["alert"] = [
+                    "message" => "L'adresse saisie est la même que celle déjà enregistrée, veuillez recommencer !",
+                    "type" => SELF::ALERT_DANGER
+                ];
+            }
+        } else {
+            $_SESSION["alert"] = [
+                "message" => "Veuillez remplir le champs !",
+                "type" => SELF::ALERT_DANGER
+            ];
+        }
     }
 
 }

@@ -10,8 +10,9 @@ class ConnectionController extends MainController{
     {
         if (!empty($_POST["login"])){
             $userLogin = $this->usermanager->viewUser($_POST["login"]);// bool = false si n'existe pas; array si existe
+            var_dump($userLogin);
+            var_dump($_POST["login"]);
         }
-
         if (empty($_SESSION["connected"])){
             if (!empty($_POST["login"]) && !empty($_POST["password"]) && $userLogin !==  false){
                 if (password_verify($_POST["password"], $userLogin["password"]) === true){
