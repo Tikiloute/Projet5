@@ -7,6 +7,7 @@ use Controllers\MainController;
 use Controllers\ConnectionController;
 use Controllers\AdministratorController;
 use Controllers\ProductController;
+use Controllers\CartController;
 use Models\ProductsManager;
 
 //permet de bien pointer si plusieurs niveaux de dossier sont nécessaire (ex: si home/articles nous pointons vrs articles et que nous repassons sur accueil nous aurons accueil/home sans ce URL)
@@ -17,6 +18,7 @@ $mainController = new MainController();
 $connectionController = new ConnectionController();
 $administratorController = new AdministratorController();
 $productController = new ProductController();
+$cartController = new CartController();
 $productsManager = new ProductsManager();
 
 define("CATEGORY", $productsManager->category());
@@ -37,23 +39,7 @@ try {
             break;
 
         case "cart":
-            $mainController->panier();
-            break;
-
-        case "informatique":
-            $mainController->informatique();//page?category
-            break;
-
-        case "jeuxVideo":
-            $mainController->jeuxVideo();
-            break;
-
-        case "electronique":
-            $mainController->electronique();
-            break;
-
-        case "musique":
-            $mainController->musique();
+            $cartController->viewCart();
             break;
 
         case "connect":
@@ -123,6 +109,16 @@ try {
             break;
 
         case "products":
+
+            if (!empty($url[1])) {
+
+                switch ($url[1]) {
+
+                    case "addToCart" : $productController->addToCart();
+                    break;
+                
+                }
+            }
             
             $productController->showProducts();
             break;

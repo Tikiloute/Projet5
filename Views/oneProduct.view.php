@@ -39,7 +39,7 @@
           <br>
           <form action="#" method="POST">
           <label  for="numberProduct">Quantité</label>
-            <input class="col-3 border rounded" type="number" name="numberProduct" id="numberProduct">
+            <input class="col-3 border rounded" type="number" name="numberProduct" id="numberProduct" value=1>
           </form>
           <br>
           <strong class="d-inline-block mb-2 text-success"><?= $oneProduct[0]["prix"] ?>€</strong>

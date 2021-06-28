@@ -54,61 +54,6 @@ class MainController{
         $this->newPage($data_page);
     }
 
-    public function informatique()
-    {
-        $data_page = [
-            "page_description" => "section informatique",
-            "page_title" => "Catégorie : informatique",
-            "view" => "Views/informatique.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function jeuxVideo()
-    {
-        $data_page = [
-            "page_description" => "section jeux vidéo",
-            "page_title" => "Catégorie : jeux vidéo",
-            "view" => "Views/jeuxVideo.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function electronique()
-    {
-        $data_page = [
-            "page_description" => "section electronique",
-            "page_title" => "Catégorie : électronique",
-            "view" => "Views/electronique.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function musique()
-    {
-        $data_page = [
-            "page_description" => "section musique",
-            "page_title" => "Catégorie : musique",
-            "view" => "Views/musique.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
-    public function panier()
-    {
-        $data_page = [
-            "page_description" => "Panier",
-            "page_title" => "panier",
-            "view" => "Views/panier.view.php",
-            "template" => "Views/common/template.php"
-        ];
-        $this->newPage($data_page);
-    }
-
     public function pageError(string $msg) :void
     {
         $data_page = [

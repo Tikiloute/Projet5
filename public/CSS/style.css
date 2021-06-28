@@ -2,7 +2,24 @@
     border: 1px solid black;
 }
 
+.card{
+    height: auto;
+    margin-top: 3rem;
+}
+
 .card-body{
     height: 100px;
 }
+
+.card-image{
+    width: 100%;
+    height: 50%;
+}
+
+.card-image img{
+    width: 100%;
+    height: auto;
+}
+
+
 

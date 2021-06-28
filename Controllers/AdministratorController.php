@@ -33,6 +33,7 @@ class AdministratorController  extends MainController{
 
     public function modifyAdministratorIdentify()
     {
+        
         $user = $this->usermanager->viewUser($_SESSION["login"]);
         if (!empty($_POST["changePassword"]) && $_POST["changePassword"] === $_POST["ConfirmPassword"]){
                 $mdp = password_hash($_POST["changePassword"], PASSWORD_DEFAULT);
@@ -95,25 +96,27 @@ class AdministratorController  extends MainController{
 
     public function validateRole()
     {
-        $user = $this->usermanager->viewUser($_POST["login"]);
-        if (!empty($_POST["login"]) && !empty($_POST["role"])){
-            if ($user["role"] !== $_POST["role"]) {
-                $_SESSION["alert"] = [
-                    "message" => "Le rôle de ".$_POST["login"]." est désormais '".$_POST["role"]."' !",
-                    "type" => SELF::ALERT_SUCCESS
-                ];
-                $this->usermanager->modifyRole($_POST["role"], $_POST["login"]);
+        if (!empty($_POST["login"])){
+            $user = $this->usermanager->viewUser($_POST["login"]);
+            if (!empty($_POST["role"])){
+                if ($user["role"] !== $_POST["role"]) {
+                    $_SESSION["alert"] = [
+                        "message" => "Le rôle de ".$_POST["login"]." est désormais '".$_POST["role"]."' !",
+                        "type" => SELF::ALERT_SUCCESS
+                    ];
+                    $this->usermanager->modifyRole($_POST["role"], $_POST["login"]);
+                } else {
+                    $_SESSION["alert"] = [
+                        "message" => "Le rôle de ".$_POST["login"]." est déjà '".$_POST["role"]."' !",
+                        "type" => SELF::ALERT_DANGER
+                    ];
+                }
             } else {
                 $_SESSION["alert"] = [
-                    "message" => "Le rôle de ".$_POST["login"]." est déjà '".$_POST["role"]."' !",
+                    "message" => "Veuillez rentrer le pseudonyme et / ou le rôle!",
                     "type" => SELF::ALERT_DANGER
                 ];
             }
-        } else {
-            $_SESSION["alert"] = [
-                "message" => "Veuillez rentrer le pseudonyme et / ou le rôle!",
-                "type" => SELF::ALERT_DANGER
-            ];
         }
         $data_page = [
             "page_description" => "Espace personnel",

@@ -20,6 +20,8 @@ class ConnectionController extends MainController{
                     $_SESSION["connected"] = true;
                     $_SESSION["login"] = $userLogin["identifiant"];
                     $_SESSION["idUser"] = $userLogin["id"];
+                    $id_panier = bin2hex(openssl_random_pseudo_bytes(10)); //var_char aleatoire à 10 caractères
+                    $_SESSION["id_panier"] = $id_panier;
                     $panier = $this->productsManager->cart($_SESSION["idUser"]);
                     $countPanier = count($panier);
 

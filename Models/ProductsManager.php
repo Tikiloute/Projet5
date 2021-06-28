@@ -17,9 +17,31 @@ class ProductsManager  extends Model{
         return $result;
     }
 
+    public function viewCart(mixed $idPanier): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM panier p INNER JOIN produit r ON p.id_produit = r.id WHERE p.id_panier = :id_panier ORDER BY p.date ASC");
+        $stmt->bindParam(":id_panier", $idPanier);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        
+        return $result;
+    }
+
     public function allProducts(): array //limit offset pour la pagination!
     {
         $stmt = $this->pdo->prepare("SELECT * FROM produit LIMIT 10 OFFSET 0");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        
+        return $result;
+    }
+
+    public function allProductsByCategory($idCategory): array //limit offset pour la pagination!
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id_category = :id_category LIMIT 10 OFFSET 0");
+        $stmt->bindParam(":id_category", $idCategory);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -47,13 +69,27 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function category(): array
+    public function category(): array // créer un manager pour lui
     {
         $stmt = $this->pdo->prepare("SELECT * FROM category");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         
+        return $result;
+    }
+
+    public function getCategory(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM category WHERE id = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT );
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        if ($result === false){
+            $result = null;
+        }
+
         return $result;
     }
 
@@ -92,12 +128,24 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function countCategory($category)
+    public function countCategory(int $id_category): void
     {
         $stmt = $this->pdo->prepare(("SELECT COUNT(*) FROM produit WHERE id_category = :id_category"));
         $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     }
+
+    public function addToCart(mixed $id_panier, int $id_utilisateur, int $id_produit): void
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO panier (id_panier, id_utilisateur, date, id_produit) VALUES (:id_panier, :id_utilisateur, NOW(), :id_produit)");
+        $stmt->bindParam(":id_panier", $id_panier, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":id_utilisateur", $id_utilisateur, PDO::PARAM_INT);
+        $stmt->bindParam(":id_produit", $id_produit, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+
 
 }
