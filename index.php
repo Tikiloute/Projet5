@@ -101,10 +101,12 @@ try {
                 }
            } else {
                 $connectionController->connection();
-           }
                 break;
-
-        case "disconnect":
+           }
+            break;
+        
+        case "disconnect": 
+            var_dump("disconnect");
             $connectionController->disconnect();
             break;
 
@@ -124,6 +126,16 @@ try {
             break;
 
         case "product":
+
+            if (!empty($url[1])) {
+
+                switch ($url[1]) {
+
+                    case "addToCart" : $productController->addToCart();
+                    break;
+                
+                }
+            }
 
             $productController->showOneProduct();
             break;

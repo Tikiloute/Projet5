@@ -20,13 +20,13 @@ class Usermanager  extends Model{
     public function createAccount(mixed $login, mixed $password, string $nom, string $prenom, mixed $mail, mixed $adresse, int $code): void
     {
         $stmt = $this->pdo->prepare("INSERT INTO utilisateur (identifiant, password, nom, prenom, mail, adresse, code) VALUES (:identifiant, :password, :nom, :prenom, :mail, :adresse, :code)");
-        $stmt->bindParam(":identifiant", $login, PDO::PARAM_INT);
-        $stmt->bindParam(":password", $password, PDO::PARAM_INT);
+        $stmt->bindParam(":identifiant", $login, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":password", $password, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":nom", $nom, PDO::PARAM_STR);
         $stmt->bindParam(":prenom", $prenom, PDO::PARAM_STR);
         $stmt->bindParam(":adresse", $adresse, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":mail", $mail, PDO::PARAM_STR_CHAR);
-        $stmt->bindParam(":code", $code, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":code", $code, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     }

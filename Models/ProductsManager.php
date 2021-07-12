@@ -6,10 +6,10 @@ use PDO;
 
 class ProductsManager  extends Model{
     
-    public function cart(int $id): ?array
+    public function cart(mixed $id_panier): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM produit_panier p INNER JOIN panier a ON p.id_panier = a.id INNER JOIN produit o ON p.id_produit = o.id WHERE a.id_utilisateur = :id ORDER BY a.date");
-        $stmt->bindParam(":id", $id);
+        $stmt = $this->pdo->prepare("SELECT * FROM produit_panier p INNER JOIN panier a ON p.id_panier = a.id INNER JOIN produit o ON p.id_produit = o.id WHERE a.id_panier = :id ORDER BY a.date");
+        $stmt->bindParam(":id_panier", $id_panier, PDO::PARAM_STR_CHAR);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -20,7 +20,19 @@ class ProductsManager  extends Model{
     public function viewCart(mixed $idPanier): ?array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM panier p INNER JOIN produit r ON p.id_produit = r.id WHERE p.id_panier = :id_panier ORDER BY p.date ASC");
-        $stmt->bindParam(":id_panier", $idPanier);
+        $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        
+        return $result;
+    }
+
+    public function aimViewCart(mixed $idPanier, mixed $idProduit): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM panier p INNER JOIN produit r ON p.id_produit = r.id WHERE p.id_panier = :id_panier AND p.id_produit = :id_produit ORDER BY p.date ASC");
+        $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_STR_CHAR);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -41,7 +53,7 @@ class ProductsManager  extends Model{
     public function allProductsByCategory($idCategory): array //limit offset pour la pagination!
     {
         $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id_category = :id_category LIMIT 10 OFFSET 0");
-        $stmt->bindParam(":id_category", $idCategory);
+        $stmt->bindParam(":id_category", $idCategory, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -146,6 +158,21 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
+    public function addQuantityProduct(int $quantity, int $id_produit): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE panier SET quantity = :quantity WHERE id_produit = :id_produit");
+        $stmt->bindParam(":quantity", $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(":id_produit", $id_produit, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 
+    public function countIdProduit($idProduit)
+    {
+        $stmt = $this->pdo->prepare(("SELECT COUNT(*) FROM produit WHERE id_produit = :id_produit"));
+        $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 
 }

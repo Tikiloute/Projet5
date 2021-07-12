@@ -37,10 +37,9 @@
   } 
 ?>
           <br>
-          <form action="#" method="POST">
+          <form action="<?=URL?>product/addToCart&id=<?=$_GET['id']?>" method="POST">
           <label  for="numberProduct">Quantité</label>
             <input class="col-3 border rounded" type="number" name="numberProduct" id="numberProduct" value=1>
-          </form>
           <br>
           <strong class="d-inline-block mb-2 text-success"><?= $oneProduct[0]["prix"] ?>€</strong>
           <br>
@@ -49,7 +48,8 @@
             <span><img src='<?= URL."public/assets/images/"?>cadenas.png' class="me-2" height="15px">Transactions sécurisées</span>
           </span>
           <br>
-          <a href="#" class="card-link btn btn-primary">Ajouter au panier</a>
+          <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+          </form>
         </div>
       </div>
     </div>

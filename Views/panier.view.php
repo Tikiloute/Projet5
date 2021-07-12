@@ -5,16 +5,27 @@
 $sum = 0;
 foreach ($cart as $carts){
 
-$sum += $carts["prix"];
+$sum += $carts["prix"] * $carts["quantity"];
+//var_dump($carts["id_produit"]);
+
 ?>
 <hr>
-    <img src="<?= URL."public/assets/images/".$carts["image"] ?>" alt="<?=$carts["description"]?>" class='card-image' >
-    <h4><?= $carts["nom"] ?></h4>
-    <div>Prix : <?= $carts["prix"] ?>€</div>
+<div class="row">
+    <div class="row col-md-10">
+    <img src="<?= URL."public/assets/images/".$carts["image"] ?>" alt="<?=$carts["description"]?>" class="col-md-5" width="auto" height="auto">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0"><?= $carts["nom"] ?></h3>
+            <p class="card-text mb-auto"><?=$carts["description"]?></p>
+            <p class="card-text mb-auto">Quantité : <?=$carts["quantity"]?></p>
+        </div>
+    </div>
+    <div class="">Prix : <?= $carts["prix"] ?>€</div>
+</div>
 
-<hr>
 <?php
 }
 ?>
-
+<hr>
     <h3>Prix total : <?= $sum ?>€</h3>
+
+<?php 

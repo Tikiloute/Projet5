@@ -33,7 +33,6 @@ class MainController{
 
     public function home()
     {
-
         $data_page = [
             "page_description" => "Accueil du site",
             "page_title" => "Accueil",

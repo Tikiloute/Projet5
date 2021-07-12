@@ -84,6 +84,7 @@ if($users["role"] != "administrateur"){
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "date"?></td>
                 </tr>
                     <?php
+                    if(isset($countPanier)){
                         for($i = 0; $i < $countPanier; $i++){
                     ?>
                 <tr>
@@ -94,6 +95,7 @@ if($users["role"] != "administrateur"){
                 </tr>
                     <?php
                         }
+                    }
                     ?>
             </table>
         </div>

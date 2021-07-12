@@ -18,7 +18,6 @@ class CartController  extends MainController{
     {
 
         $carts = $this->productsManager->viewCart($_SESSION["id_panier"]);
-        var_dump($carts);
         $data_page = [
             "page_description" => "Panier",
             "page_title" => "panier",

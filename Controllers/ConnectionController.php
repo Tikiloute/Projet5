@@ -10,8 +10,6 @@ class ConnectionController extends MainController{
     {
         if (!empty($_POST["login"])){
             $userLogin = $this->usermanager->viewUser($_POST["login"]);// bool = false si n'existe pas; array si existe
-            var_dump($userLogin);
-            var_dump($_POST["login"]);
         }
         if (empty($_SESSION["connected"])){
             if (!empty($_POST["login"]) && !empty($_POST["password"]) && $userLogin !==  false){
@@ -20,10 +18,6 @@ class ConnectionController extends MainController{
                     $_SESSION["connected"] = true;
                     $_SESSION["login"] = $userLogin["identifiant"];
                     $_SESSION["idUser"] = $userLogin["id"];
-                    $id_panier = bin2hex(openssl_random_pseudo_bytes(10)); //var_char aleatoire à 10 caractères
-                    $_SESSION["id_panier"] = $id_panier;
-                    $panier = $this->productsManager->cart($_SESSION["idUser"]);
-                    $countPanier = count($panier);
 
                     $_SESSION["alert"] = [
                         "message" => "Vous êtes bien connecté !",
@@ -33,8 +27,6 @@ class ConnectionController extends MainController{
                         "page_description" => "Espace personnel",
                         "page_title" => "Espace personnel",
                         "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
-                        "panier" => $panier,
-                        "countPanier" => $countPanier,
                         "view" => "Views/connected.view.php",
                         "template" => "Views/common/template.php"
                     ];
@@ -67,18 +59,14 @@ class ConnectionController extends MainController{
                 $this->newPage($data_page);
             }
         } else {
-            $panier = $this->productsManager->cart($_SESSION["idUser"]);
-            $countPanier = count($panier);
-            $data_page = [
-                "page_description" => "Page de connexion",
-                "page_title" => "Page de connexion",
-                "view" => "Views/connected.view.php",
-                "users" => $this->usermanager->viewUser($_SESSION["login"]),
-                "panier" => $panier,
-                "countPanier" => $countPanier,
-                "template" => "Views/common/template.php"
-            ];
-            $this->newPage($data_page);
+                $data_page = [
+                    "page_description" => "Espace personnel",
+                    "page_title" => "Espace personnel",
+                    "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
+                    "view" => "Views/connected.view.php",
+                    "template" => "Views/common/template.php"
+                ];
+                $this->newPage($data_page);
         }
     }
 
@@ -100,7 +88,7 @@ class ConnectionController extends MainController{
             if ($_POST["password"] === $_POST["confirmPassword"]){
                 $code = rand(1, 1000000);
                 $_SESSION["alert"] = [
-                    "message" => "Compte crée, code : ".$code."veuillez le valider avec le lien présent dans votre boite mail",
+                    "message" => "Compte crée, code : ".$_POST["login"]."-----".$_POST["password"]."   veuillez le valider avec le lien présent dans votre boite mail",
                     "type" => SELF::ALERT_SUCCESS
                 ];
                 $mdp = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -138,6 +126,7 @@ class ConnectionController extends MainController{
         unset($_SESSION["connected"]);
         unset($_SESSION["login"]);
         unset($_SESSION["idUser"]);
+        unset($_SESSION["id_panier"]);
         $data_page = [
             "page_description" => "Page de connexion",
             "page_title" => "Page de connexion",
