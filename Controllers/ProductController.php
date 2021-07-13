@@ -88,4 +88,27 @@ class ProductController  extends MainController{
         }
     }
 
+    public function modifyQuantity()
+    {
+        if (isset($_POST["quantity"], $_POST['idProduct'])){
+            if ($_POST["quantity"] > 0){
+                $_SESSION["alert"] = [
+                    "message" => "Vous avez bien modifié le nombre d'article souhaité",
+                    "type" => SELF::ALERT_SUCCESS
+                ];
+                $this->productsManager->addQuantityProduct($_POST["quantity"], $_POST['idProduct']);    
+            } else {
+                $_SESSION["alert"] = [
+                    "message" => "Vous ne pouvez pas avoir une quantité à 0",
+                    "type" => SELF::ALERT_DANGER
+                ];
+            }
+        } else {
+            $_SESSION["alert"] = [
+                "message" => "Une erreur s'est produite, veuillez réessayer !",
+                "type" => SELF::ALERT_DANGER
+            ];
+        }
+    }
+
 }

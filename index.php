@@ -39,6 +39,21 @@ try {
             break;
 
         case "cart":
+            if (!empty($url[1])) {
+
+                switch ($url[1]) {
+
+                    case "modifyQuantity" :
+                        $productController->modifyQuantity();
+                        break;
+
+                    default : $cartController->viewCart();
+                }
+            } else {
+                $cartController->viewCart();
+                break;
+            }
+
             $cartController->viewCart();
             break;
 

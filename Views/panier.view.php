@@ -6,7 +6,7 @@ $sum = 0;
 foreach ($cart as $carts){
 
 $sum += $carts["prix"] * $carts["quantity"];
-//var_dump($carts["id_produit"]);
+//var_dump($carts);
 
 ?>
 <hr>
@@ -16,16 +16,23 @@ $sum += $carts["prix"] * $carts["quantity"];
         <div class="col p-4 d-flex flex-column position-static">
           <h3 class="mb-0"><?= $carts["nom"] ?></h3>
             <p class="card-text mb-auto"><?=$carts["description"]?></p>
-            <p class="card-text mb-auto">Quantité : <?=$carts["quantity"]?></p>
+            <form action="<?=URL?>cart/modifyQuantity" method="POST">
+                <label  for="numberProduct">Quantité</label>
+                <input type="hidden" name="idProduct" value=<?= $carts["id"]?>>
+                <input class="col-3 border rounded" type="number" name="quantity" id="quantityProduct" value=<?= $carts["quantity"]?>>
+                <button type="submit" class="btn btn-primary">Modifiez la quantité</button>
+            </form>
         </div>
     </div>
-    <div class="">Prix : <?= $carts["prix"] ?>€</div>
+    <div class="">
+       <h5 class="price"> Prix : <?= $carts["prix"]*$carts["quantity"] ?>€ </h5>
+    </div>
 </div>
 
 <?php
 }
 ?>
 <hr>
-    <h3>Prix total : <?= $sum ?>€</h3>
+    <h3 class="price">Prix total : <?= $sum ?>€</h3>
 
 <?php 

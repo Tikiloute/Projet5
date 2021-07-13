@@ -41,10 +41,9 @@
           <label  for="numberProduct">Quantité</label>
             <input class="col-3 border rounded" type="number" name="numberProduct" id="numberProduct" value=1>
           <br>
-          <strong class="d-inline-block mb-2 text-success"><?= $oneProduct[0]["prix"] ?>€</strong>
+          <strong class="d-inline-block mb-2 text-success price"><?= $oneProduct[0]["prix"] ?>€</strong>
           <br>
           <span class="d-inline-block mb-1 text-muted">
-            
             <span><img src='<?= URL."public/assets/images/"?>cadenas.png' class="me-2" height="15px">Transactions sécurisées</span>
           </span>
           <br>
