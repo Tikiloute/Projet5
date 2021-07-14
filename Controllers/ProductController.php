@@ -15,11 +15,13 @@ class ProductController  extends MainController{
             $allProducts = $this->productsManager->allProductsByCategory($_GET["category"]);
         } else {
             $this->displayError();
+            $category = NULL;
         }
         $data_page = [
             "page_description" => "Page produits",
             "page_title" => "Page produits",
             "products" => $allProducts,
+            "category" => $category,
             "view" => "Views/products.view.php",
             "template" => "Views/common/template.php"
         ];
@@ -109,6 +111,15 @@ class ProductController  extends MainController{
                 "type" => SELF::ALERT_DANGER
             ];
         }
+    }
+
+    public function deleteProductCart()
+    {
+        $_SESSION["alert"] = [
+            "message" => "Vous avez bien supprimé l'article de votre panier !",
+            "type" => SELF::ALERT_SUCCESS
+        ];
+        $this->productsManager->deleteProductCart($_SESSION["id_panier"], $_POST['idProduct']);    
     }
 
 }

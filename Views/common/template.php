@@ -11,9 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous" defer></script>
 </head>
 <body>
-    <?php require_once('Views/common/header.php');          var_dump($_SESSION);?>
+    <?php require_once('Views/common/header.php'); ?>
 
-<!-- ici on créer une poteitielle alert en dessous du menu et au dessus du contenu -->
+<!-- ici on crée une potentielle alerte en dessous du menu et au dessus du contenu -->
     <div class="container">
         <?php
             if(!empty($_SESSION["alert"])){

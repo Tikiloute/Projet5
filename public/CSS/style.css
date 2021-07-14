@@ -1,3 +1,4 @@
+
 .tableauInfos {
     border: 1px solid black;
 }
@@ -23,6 +24,16 @@
 
 .price{
     text-align: right;
+}
+
+.payButton {
+    float: right;
+    margin-right: 10px;
+}
+
+.imgHome{
+    width: 100%;
+    height: 50vh;
 }
 
 

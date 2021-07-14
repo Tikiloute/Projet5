@@ -47,6 +47,10 @@ try {
                         $productController->modifyQuantity();
                         break;
 
+                    case "deleteProductCart" :
+                        $productController->deleteProductCart();
+                        break;
+
                     default : $cartController->viewCart();
                 }
             } else {

@@ -167,9 +167,18 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function countIdProduit($idProduit)
+    public function countIdProduit(int $idProduit): void
     {
         $stmt = $this->pdo->prepare(("SELECT COUNT(*) FROM produit WHERE id_produit = :id_produit"));
+        $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function deleteProductCart(mixed $idPanier, int $idProduit): void
+    {
+        $stmt = $this->pdo->prepare(("DELETE FROM panier WHERE id_panier = :id_panier AND id_produit = :id_produit"));
+        $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
