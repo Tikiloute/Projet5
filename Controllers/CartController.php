@@ -28,4 +28,20 @@ class CartController  extends MainController{
         $this->newPage($data_page);
     }
 
+    public function checkout()
+    {
+        $cart = $this->productsManager->viewCart($_SESSION["id_panier"]);
+       // var_dump($cart);
+        $user = $this->usermanager->viewUser($_SESSION["login"]);
+        $data_page = [
+            "page_description" => "checkout",
+            "page_title" => "checkout",
+            "view" => "Views/checkout.view.php",
+            "cart" => $cart,
+            "user" => $user,
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
+    }
+
 }

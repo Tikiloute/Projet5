@@ -158,6 +158,10 @@ try {
 
             $productController->showOneProduct();
             break;
+        
+        case "checkout": 
+            $cartController->checkout();
+            break;
 
         default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception
     }

@@ -51,7 +51,7 @@ class ProductController  extends MainController{
 
     public function addToCart()
     {
-        if(!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
+        if (!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
             $id = $_GET["id"];
             $id_panier = bin2hex(openssl_random_pseudo_bytes(10)); //var_char aleatoire à 10 caractères
             if (empty($_SESSION["id_panier"])){
@@ -66,8 +66,13 @@ class ProductController  extends MainController{
                         "type" => SELF::ALERT_SUCCESS
                     ];
                     if (!empty($_POST["numberProduct"])){
-                        $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
-                        $this->productsManager->addQuantityProduct($addQuantity, $id);
+                        if (isset($aimCartProduct[0]["quantity"])){
+                            $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
+                            $this->productsManager->addQuantityProduct($addQuantity, $id);
+                        } else {
+                            $addQuantity =  $_POST["numberProduct"];
+                            $this->productsManager->addQuantityProduct($addQuantity, $id);
+                        }
                     }    
                 }
             }else {
