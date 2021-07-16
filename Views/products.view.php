@@ -6,7 +6,7 @@
 if (!empty($products)){
     foreach ($products as $product){
 ?>
-        <div class="col-sm-12 col-md-4 col-12">
+        <div class="col-sm-12 col-md-4 col-4 text-center container">
             <div class="custom-column">
                 <div class="card " style="width: 18rem;">
                     <div class="card-image">

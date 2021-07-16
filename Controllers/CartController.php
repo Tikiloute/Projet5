@@ -16,8 +16,11 @@ class CartController  extends MainController{
 
     public function viewCart()
     {
-
-        $carts = $this->productsManager->viewCart($_SESSION["id_panier"]);
+        if (!empty($_SESSION["id_panier"])){
+            $carts = $this->productsManager->viewCart($_SESSION["id_panier"]);
+        } else {
+            $carts = NULL;
+        }
         $data_page = [
             "page_description" => "Panier",
             "page_title" => "panier",

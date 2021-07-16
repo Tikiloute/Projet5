@@ -1,0 +1,14 @@
+{
+    "name": "bruno/projet5-1",
+    "type": "project",
+    "require-dev": {
+        "stripe/stripe-php": "^7.89"
+    },
+    "authors": [
+        {
+            "name": "Tikiloute",
+            "email": "bruno.etcheverry@hotmail.fr"
+        }
+    ],
+    "require": {}
+}

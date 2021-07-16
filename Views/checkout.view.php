@@ -1,7 +1,8 @@
 <h1 class="text-center">Vérification avant paiement</h1>
 <br>
 <br>
-<h2><ins>Détail de la commande</ins></h2>
+<h2  class="text-center"><ins>Détail de la commande</ins></h2>
+<br>
 <br>
 <table class="table">
     <tr class="text-center">
@@ -43,23 +44,24 @@
 <br>
 <br>
 
-<h2><ins>Vérification des informations personnelles</ins></h2>
+<h2 class="text-center"><ins>Vérification des informations personnelles</ins></h2>
 
 <br>
 <br>
 
 <h3>Votre adresse de livraison :</h3>
+<br>
 <p>Votre nom :  <?= $user["prenom"]?></p>
 <p>Votre prénom : <?= $user["nom"]?></p>
 <p>Adresse : <?= $user["adresse"]?></p>
 <br>
-<br>
 
 <?php
-    if (isset($user["adresse_de_facturation"])){
+    if (!empty($user["adresse_de_facturation"])){
 ?>
 
 <h3>Votre adresse de facturation :</h3>
+<br>
 <p>Votre nom :  <?= $user["prenom"]?></p>
 <p>Votre prénom : <?= $user["nom"]?></p>
 <p>Adresse : <?= $user["adresse_de_facturation"]?></p>
@@ -67,8 +69,14 @@
 <br>
 
 <?php
+    } else {
+?>
+    <a href="<?=URL?>connect/connected&billAddress" class="btn btn-success">Ajouter une adresse de facturation</a>
+<?php
     }
     $_SESSION["bill"] = $price;
 ?>
 
-<a href="" class="btn btn-warning ">Passez au paiement</a>
+<div class=" text-center">
+    <a href="" class="btn btn-warning ">Passer au paiement</a>
+</div>
