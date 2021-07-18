@@ -20,7 +20,7 @@ class AdministratorController  extends MainController{
                 ];
             }
         }
-        $productsManager = $this->productsManager->allProducts();
+        $productsManager = $this->productsManager->allProducts(SELF::LIMIT, 1);
         $data_page = [
             "page_description" => "Espace personnel",
             "page_title" => "Espace personnel",

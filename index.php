@@ -15,12 +15,15 @@ use Models\ProductsManager;
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
 
 $stripe = new \Stripe\StripeClient("sk_test_51JDYWyGStSoF0gzC9IZjXGtkdETZFGyVvnSSXgnE6IzwRYCsHlRDeIdkxo6CHHLhUngZUdUf0aJZI7x7eIApz4Yp00k4yrTfKR");
+
 $customer = $stripe->customers->create([
     'description' => 'example customer',
     'email' => 'bruno.etcheverry@hotmail.fr',
     'payment_method' => 'pm_card_visa',
+    'balance' => 1000,
 ]);
-//var_dump($customer);
+
+//var_dump($stripe);
 //var_dump($stripe->charges->create([]));
 $mainController = new MainController();
 $connectionController = new ConnectionController();

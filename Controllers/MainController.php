@@ -10,7 +10,7 @@ class MainController{
     const ALERT_DANGER = "alert-danger"; //red_alert
     const ALERT_SUCCESS = "alert-success";//green_alert
     const ALERT_WARNING = "alert-warning";//orange_alert
-    const LIMIT = 1; //pour la pagination
+    const LIMIT = 12; //pour la pagination
 
     protected $productsManager;
     protected $usermanager;

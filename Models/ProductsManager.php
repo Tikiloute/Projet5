@@ -40,9 +40,11 @@ class ProductsManager  extends Model{
         return $result;
     }
 
-    public function allProducts(): array //limit offset pour la pagination!
+    public function allProducts(int $limit, int $offset): array //limit offset pour la pagination!
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM produit LIMIT 10 OFFSET 0");
+        $stmt = $this->pdo->prepare("SELECT * FROM produit LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(":offset", $offset,\PDO::PARAM_INT);
+        $stmt->bindParam(":limit", $limit,\PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -50,10 +52,12 @@ class ProductsManager  extends Model{
         return $result;
     }
 
-    public function allProductsByCategory($idCategory): array //limit offset pour la pagination!
+    public function allProductsByCategory(int $idCategory, int $limit, int $offset): array //limit offset pour la pagination!
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id_category = :id_category LIMIT 10 OFFSET 0");
+        $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id_category = :id_category LIMIT :limit OFFSET :offset");
         $stmt->bindParam(":id_category", $idCategory, PDO::PARAM_INT);
+        $stmt->bindParam(":offset", $offset,\PDO::PARAM_INT);
+        $stmt->bindParam(":limit", $limit,\PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -173,6 +177,17 @@ class ProductsManager  extends Model{
         $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
+    }
+
+    public function countProduitByCategory($idCategory)
+    {
+        $stmt = $this->pdo->prepare(("SELECT COUNT(*) FROM produit WHERE id_category = :id_category"));
+        $stmt->bindParam(":id_category", $idCategory, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $result;
     }
 
     public function deleteProductCart(mixed $idPanier, int $idProduit): void

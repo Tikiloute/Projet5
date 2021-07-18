@@ -14,7 +14,7 @@
 <?php      
         foreach (CATEGORY as $categorie){ //ici on utilise la constante CATEGORY
 ?>
-           <li><a class="dropdown-item" href="<?= URL."products&category=".$categorie["id"] ?>"><?= $categorie["category_name"]?></a></li>
+           <li><a class="dropdown-item" href="<?= URL."products&amp;category=".$categorie["id"]."&amp;paging=1" ?>"><?= $categorie["category_name"]?></a></li>
 <?php 
         }
 ?>
@@ -24,7 +24,7 @@
         <?PHP
         if (!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
         ?>
-        <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2"><img src="<?= URL ?>public\assets\images\profile.png" width="35px" alt="caddie représentant le panier de client">Votre espace</a></li>
+        <li class="nav-item"><a href="<?= URL ?>connect/connected" class="nav-link mt-2"><img src="<?= URL ?>public\assets\images\profile.png" width="35px" alt="caddie représentant la photo de profil du client">Votre espace</a></li>
         <li class="nav-item"><a href="<?= URL ?>disconnect" class="nav-link mt-2 ms-5">Se deconnecter</a></li>
         <?php 
         } else {
