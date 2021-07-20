@@ -100,7 +100,7 @@ class ProductController  extends MainController{
         } else {
             $_SESSION["alert"] = [
                 "message" => "Vous devez vous connecter avant d'ajouter des produits dans votre panier",
-                "type" => SELF::ALERT_DANGER
+                "type" => SELF::ALERT_WARNING
             ];
         }
     }
@@ -135,6 +135,17 @@ class ProductController  extends MainController{
             "type" => SELF::ALERT_SUCCESS
         ];
         $this->productsManager->deleteProductCart($_SESSION["id_panier"], $_POST['idProduct']);    
+    }
+
+    public function payWithStripe()
+    {
+        $data_page = [
+            "page_description" => "Page produit",
+            "page_title" => "Page produit",
+            "view" => "Views/checkout.html",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
     }
 
 }

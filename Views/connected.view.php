@@ -133,7 +133,7 @@ if($users["role"] != "administrateur"){
     <br>
     <br>
     <h4>Modifier vos identifiants</h4>
-    <a href="<?= URL ?>connect/modifyAdministratorIdentify" type="button" class="btn btn-success">Modifier vos identifiants</a>
+    <a href="<?= URL ?>connect/modifyAdministratorIdentify" type="button" class="btn btn-success">Modifier votre identifiant / Mot de passe</a>
 
 <?php
 /**

@@ -37,12 +37,16 @@
         <th></th>
         <th>Prix total :</th>
         <th><?= $price ?>€</th>
+        <?php $_SESSION["prixGlobal"] = $price ?>
+<?php 
+?>
     </tr>
 </table>
 
 <br>
 <br>
 <br>
+<?php ; ?>
 
 <h2 class="text-center"><ins>Vérification des informations personnelles</ins></h2>
 
@@ -78,5 +82,5 @@
 ?>
 
 <div class=" text-center">
-    <a href="" class="btn btn-warning ">Passer au paiement</a>
+    <a href="<?=URL?>payStripe" class="btn btn-warning ">Passer au paiement</a>
 </div>

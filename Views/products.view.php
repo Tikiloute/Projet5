@@ -6,15 +6,15 @@
 <?php
     }
 ?>
-<div class="container">
-  <div class="row">
+<div class="container ">
+  <div class="row ">
 <?php 
 if (!empty($products)){
     foreach ($products as $product){
 ?>
-        <div class="col-sm-12 col-md-4 col-4 text-center container">
+        <div class="col-md-4 col-12 text-center container">
             <div class="custom-column">
-                <div class="card " style="width: 18rem;">
+                <div class="card" style="width: 18rem;">
                     <div class="card-image">
                         <a href="<?=URL?>product&id=<?=$product['id']?>"><img src="<?= URL."public/assets/images/".$product["image"] ?>"  class="mt-2 card-img-top" alt=<?= $product['description']?>></a>
                     </div>
@@ -26,7 +26,7 @@ if (!empty($products)){
                         </ul>
                     <div class="col-sm-12 col-md-12 col-12 card-body">
                         <a href="<?=URL?>product&id=<?=$product['id']?>" class="col-5 card-link btn btn-info text-light">Voir l'article</a>
-                        <a href="<?=URL?>products/addToCart&category=<?= $_GET['category']?>&id=<?=$product['id']?>" class="col-5 card-link btn btn-primary">Ajouter au panier</a>
+                        <a href="<?=URL?>products/addToCart&category=<?= $_GET['category']?>&paging=<?= $_GET["paging"]?>&id=<?=$product['id']?>" class="col-5 card-link btn btn-primary">Ajouter au panier</a>
                     </div>
                 </div>
             </div>

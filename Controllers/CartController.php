@@ -34,7 +34,6 @@ class CartController  extends MainController{
     public function checkout()
     {
         $cart = $this->productsManager->viewCart($_SESSION["id_panier"]);
-       // var_dump($cart);
         $user = $this->usermanager->viewUser($_SESSION["login"]);
         $data_page = [
             "page_description" => "checkout",
@@ -45,6 +44,11 @@ class CartController  extends MainController{
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);
+    }
+
+    public function success()
+    {
+       
     }
 
 }

@@ -1,10 +1,10 @@
 
 <div class="col-12">
-      <div class="row g-0 rounded align-middle overflow-hidden flex-md-row mb-4  h-md-250 position-relative">
-        <div class="col-4 d-none d-lg-block">
-            <img src='<?= URL."public/assets/images/".$oneProduct[0]['image'] ?>' class="col-10 m-5" >
+      <div class="oneProduct row g-0 rounded align-middle overflow-hidden flex-md-row col-sm-12 mb-4">
+        <div class="col-4 d-lg-block me-5 oneProduct">
+            <img src='<?= URL."public/assets/images/".$oneProduct[0]['image'] ?>' class="col-10 col-sm-12 m-5" >
         </div>
-        <div class="col-5 p-4 d-flex flex-column position-static">
+        <div class="col-5 p-4 d-flex flex-column position-static oneProduct ms-4">
           <h3 class="mb-0"><?= $oneProduct[0]["nom"] ?></h3>
           <hr>
 <?php 
@@ -21,7 +21,7 @@
           <strong class="d-inline-block h3 mb-2 text-success"><?= $oneProduct[0]["prix"] ?>€</strong>
           <br>
         </div>
-        <div class="col-2 p-4 border rounded d-flex flex-column position-static">
+        <div class="col-2 p-4 border rounded d-flex flex-column position-static oneProduct">
           <h6 class="mb-0 text-warning">Livraison gratuite si la commande dépasse les 50€</h6>
           <hr>
           <div class="mb-1 text-muted">A remplir</div>

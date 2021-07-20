@@ -41,5 +41,13 @@
       width: 30vw;
       height: auto;
     }
-  }
+
+    .oneProduct{
+        display: flex;
+        flex-direction: column !important;
+        width: 100%;
+    }
+}
+
+/* -----------------------------------------------STRIPE---------------------------------------------------------------*/
 
