@@ -48,7 +48,17 @@ class CartController  extends MainController{
 
     public function success()
     {
-       
+        $_SESSION["alert"] = [
+            "message" => "Votre achat a bien été effectué !",
+            "type" => SELF::ALERT_SUCCESS
+        ];
+        $data_page = [
+            "page_description" => "Success",
+            "page_title" => "Success",
+            "view" => "Views\stripeSuccess.view.php",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
     }
 
 }

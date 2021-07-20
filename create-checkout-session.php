@@ -15,15 +15,15 @@ $checkout_session = \Stripe\Checkout\Session::create([
       'unit_amount' => $_SESSION["prixGlobal"]*100,
       'product_data' => [
         'name' => 'Votre panier',
-        'images' =>["https://i.imgur.com/EHyR2nP.png"],
+        'images' =>["https://i.imgur.com/CVZxaZS.jpg"],
       ],
     ],
     'quantity' => 1,
   ]],
   'mode' => 'payment',
-  'success_url' => $YOUR_DOMAIN.'stripeSuccess.php',
+  'success_url' => URL.'stripeSuccess',
   'cancel_url' => URL. 'payStripe/cancel.html',
 ]);
 
-header("HTTP/1.1 303 See Other");
+//header("HTTP/1.1 303 See Other");
 header("Location: " . $checkout_session->url);

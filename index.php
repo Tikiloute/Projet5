@@ -192,6 +192,10 @@ try {
             require_once('create-checkout-session.php');
             break;
 
+            case "stripeSuccess": 
+                $cartController->success();
+                break;
+
         default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception
     }
 } catch (Exception $e) {
