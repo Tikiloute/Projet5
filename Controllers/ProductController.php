@@ -59,52 +59,6 @@ class ProductController  extends MainController{
         $this->newPage($data_page);
     }
 
-    public function addToCart()
-    {
-        if (!empty($_SESSION["connected"]) && $_SESSION["connected"] === true){
-            $id = $_GET["id"];
-            $id_panier = bin2hex(openssl_random_pseudo_bytes(10)); //var_char aleatoire à 10 caractères
-            if (empty($_SESSION["id_panier"])){
-                $_SESSION["id_panier"] = $id_panier;
-            }
-            $aimCartProduct = $this->productsManager->aimViewCart($_SESSION["id_panier"], $id);
-            if (empty($aimCartProduct)){
-                if (isset($_SESSION["id_panier"], $id, $_SESSION["idUser"])){
-                    $this->productsManager->addToCart($_SESSION["id_panier"], $_SESSION["idUser"], $id);
-                    $_SESSION["alert"] = [
-                        "message" => "Article bien ajouté à votre panier !",
-                        "type" => SELF::ALERT_SUCCESS
-                    ];
-                    if (!empty($_POST["numberProduct"])){
-                        if (isset($aimCartProduct[0]["quantity"])){
-                            $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
-                            $this->productsManager->addQuantityProduct($addQuantity, $id);
-                        } else {
-                            $addQuantity =  $_POST["numberProduct"];
-                            $this->productsManager->addQuantityProduct($addQuantity, $id);
-                        }
-                    }    
-                }
-            }else {
-                if (empty($_POST["numberProduct"])){
-                    $addQuantity = $aimCartProduct[0]["quantity"] +1;
-                } else {
-                    $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
-                }
-                $this->productsManager->addQuantityProduct($addQuantity, $id);
-                $_SESSION["alert"] = [
-                    "message" => "Vous avez bien rajouté un exemplaire à cet article dans votre panier !",
-                    "type" => SELF::ALERT_SUCCESS
-                ];
-            }
-        } else {
-            $_SESSION["alert"] = [
-                "message" => "Vous devez vous connecter avant d'ajouter des produits dans votre panier",
-                "type" => SELF::ALERT_WARNING
-            ];
-        }
-    }
-
     public function modifyQuantity()
     {
         if (isset($_POST["quantity"], $_POST['idProduct'])){
@@ -126,15 +80,6 @@ class ProductController  extends MainController{
                 "type" => SELF::ALERT_DANGER
             ];
         }
-    }
-
-    public function deleteProductCart()
-    {
-        $_SESSION["alert"] = [
-            "message" => "Vous avez bien supprimé l'article de votre panier !",
-            "type" => SELF::ALERT_SUCCESS
-        ];
-        $this->productsManager->deleteProductCart($_SESSION["id_panier"], $_POST['idProduct']);    
     }
 
     public function payWithStripe()

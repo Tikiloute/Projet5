@@ -123,6 +123,7 @@ class ConnectionController extends MainController{
 
     public function disconnect()
     {
+        $this->productsManager->deleteCart($_SESSION["id_panier"]);
         unset($_SESSION["connected"]);
         unset($_SESSION["login"]);
         unset($_SESSION["idUser"]);

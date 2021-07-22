@@ -15,17 +15,6 @@ use Models\ProductsManager;
 //permet de bien pointer si plusieurs niveaux de dossier sont nécessaire (ex: si home/articles nous pointons vrs articles et que nous repassons sur accueil nous aurons accueil/home sans ce URL)
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
 
-// $stripe = new \Stripe\StripeClient("sk_test_51JDYWyGStSoF0gzC9IZjXGtkdETZFGyVvnSSXgnE6IzwRYCsHlRDeIdkxo6CHHLhUngZUdUf0aJZI7x7eIApz4Yp00k4yrTfKR");
-
-// $customer = $stripe->customers->create([
-//     'description' => 'example customer',
-//     'email' => 'bruno.etcheverry@hotmail.fr',
-//     'payment_method' => 'pm_card_visa',
-//     'balance' => 1000,
-// ]);
-
-//var_dump($stripe);
-//var_dump($stripe->charges->create([]));
 $mainController = new MainController();
 $connectionController = new ConnectionController();
 $administratorController = new AdministratorController();
@@ -60,7 +49,7 @@ try {
                         break;
 
                     case "deleteProductCart" :
-                        $productController->deleteProductCart();
+                        $cartController->deleteProductCart();
                         break;
 
                     default : $cartController->viewCart();
@@ -147,7 +136,7 @@ try {
 
                 switch ($url[1]) {
 
-                    case "addToCart" : $productController->addToCart();
+                    case "addToCart" : $cartController->addToCart();
                     break;
                 
                 }
@@ -162,7 +151,7 @@ try {
 
                 switch ($url[1]) {
 
-                    case "addToCart" : $productController->addToCart();
+                    case "addToCart" : $cartController->addToCart();
                     break;
          
                 }
@@ -173,28 +162,17 @@ try {
         
         case "checkout": 
             $cartController->checkout();
+            $cartController->lockCart();
             break;
 
         case "payStripe":
 
-            if (!empty($url[1])) {
-
-                switch ($url[1]) {
-
-                    case "success" : $cartController->success();
-                    break;
-
-                    case "cancel" : $productController->addToCart();
-                    break;
-                } 
-            }
-
             require_once('create-checkout-session.php');
             break;
 
-            case "stripeSuccess": 
-                $cartController->success();
-                break;
+        case "stripeSuccess": 
+            $cartController->success();
+            break;
 
         default : throw new Exception ("La page n'existe pas"); //on lance une nouvelle exception
     }

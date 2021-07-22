@@ -1,11 +1,10 @@
 <?php
 
 require 'vendor/autoload.php';
+
 \Stripe\Stripe::setApiKey('sk_test_51JDYWyGStSoF0gzC9IZjXGtkdETZFGyVvnSSXgnE6IzwRYCsHlRDeIdkxo6CHHLhUngZUdUf0aJZI7x7eIApz4Yp00k4yrTfKR');
 
 header('Content-Type: application/json');
-
-$YOUR_DOMAIN = 'http://localhost:projet5-1';
 
 $checkout_session = \Stripe\Checkout\Session::create([
   'payment_method_types' => ['card'],
@@ -21,9 +20,12 @@ $checkout_session = \Stripe\Checkout\Session::create([
     'quantity' => 1,
   ]],
   'mode' => 'payment',
-  'success_url' => URL.'stripeSuccess',
-  'cancel_url' => URL. 'payStripe/cancel.html',
+  'success_url' => URL."stripeSuccess",
+  'cancel_url' => URL. 'checkout',
 ]);
 
-//header("HTTP/1.1 303 See Other");
+$_SESSION["paid"] = $checkout_session->toArray()["payment_status"];
+$_SESSION["payment_intent"] = $checkout_session->toArray()["payment_intent"];
+
+header("HTTP/1.1 303 See Other");
 header("Location: " . $checkout_session->url);

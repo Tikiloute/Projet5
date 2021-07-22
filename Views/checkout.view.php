@@ -84,3 +84,4 @@
 <div class=" text-center">
     <a href="<?=URL?>payStripe" class="btn btn-warning ">Passer au paiement</a>
 </div>
+
