@@ -72,6 +72,9 @@ if($users["role"] != "administrateur"){
 
     <br>
     <br>
+    <?php
+    if (!empty($purchaseHistory)){
+    ?>
     <h3>Historique de vos commandes :</h3>
     <br>
     <div class="row justify-content-center">
@@ -84,14 +87,15 @@ if($users["role"] != "administrateur"){
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "date"?></td>
                 </tr>
                     <?php
-                    if(isset($countPanier)){
-                        for($i = 0; $i < $countPanier; $i++){
+                    
+                    if(isset($purchaseHistory)){
+                        foreach ($purchaseHistory as $purchase){
                     ?>
                 <tr>
-                    <td class="tableauInfos text-center"><?= $panier[$i]["nom"] ?></td>
-                    <td class="tableauInfos text-center"><?= $panier[$i]["quantity"] ?></td>
-                    <td class="tableauInfos text-center"><?= $panier[$i]["prix"] ?>€</td>
-                    <td class="tableauInfos text-center"><?= $panier[$i]["date"] ?></td>
+                    <td class="tableauInfos text-center"><?= $purchase["nom"] ?></td>
+                    <td class="tableauInfos text-center"><?= $purchase["quantity"] ?></td>
+                    <td class="tableauInfos text-center"><?= $purchase["prix"]* $purchase["quantity"] ?>€</td>
+                    <td class="tableauInfos text-center"><?= $purchase["date"] ?></td>
                 </tr>
                     <?php
                         }
@@ -101,6 +105,7 @@ if($users["role"] != "administrateur"){
         </div>
     </div>
 <?php
+    }
 /**
  * Fin partie client -------------------------------------------------------------------------------------------------------------
  */

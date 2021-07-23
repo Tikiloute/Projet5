@@ -18,6 +18,7 @@ class ConnectionController extends MainController{
                     $_SESSION["connected"] = true;
                     $_SESSION["login"] = $userLogin["identifiant"];
                     $_SESSION["idUser"] = $userLogin["id"];
+                    $purchaseHistory = $this->usermanager->purchaseHistory($_SESSION["idUser"]);
 
                     $_SESSION["alert"] = [
                         "message" => "Vous êtes bien connecté !",
@@ -26,6 +27,7 @@ class ConnectionController extends MainController{
                     $data_page = [
                         "page_description" => "Espace personnel",
                         "page_title" => "Espace personnel",
+                        "purchaseHistory" => $purchaseHistory,
                         "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
                         "view" => "Views/connected.view.php",
                         "template" => "Views/common/template.php"
@@ -59,9 +61,12 @@ class ConnectionController extends MainController{
                 $this->newPage($data_page);
             }
         } else {
+                $purchaseHistory = $this->usermanager->purchaseHistory($_SESSION["idUser"]);
+
                 $data_page = [
                     "page_description" => "Espace personnel",
                     "page_title" => "Espace personnel",
+                    "purchaseHistory" => $purchaseHistory,
                     "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
                     "view" => "Views/connected.view.php",
                     "template" => "Views/common/template.php"
@@ -123,7 +128,9 @@ class ConnectionController extends MainController{
 
     public function disconnect()
     {
-        $this->productsManager->deleteCart($_SESSION["id_panier"]);
+        if (!empty($_SESSION["id_panier"])){
+            $this->productsManager->deleteCart($_SESSION["id_panier"]);
+        }
         unset($_SESSION["connected"]);
         unset($_SESSION["login"]);
         unset($_SESSION["idUser"]);

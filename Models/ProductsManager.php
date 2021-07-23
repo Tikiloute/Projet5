@@ -162,10 +162,11 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function addToCartStatus($idPanier)
+    public function addToCartStatus(mixed $idPanier, int $idUser): void
     {
-        $stmt = $this->pdo->prepare("INSERT INTO status_panier (id_panier) VALUES (:id_panier)");
+        $stmt = $this->pdo->prepare("INSERT INTO status_panier (id_panier, id_utilisateur) VALUES (:id_panier, :id_utilisateur)");
         $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":id_utilisateur", $idUser, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     }
@@ -224,7 +225,7 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
     }
 
-    public function viewStatusCart(mixed $idPanier): ?array
+    public function viewStatusCart(mixed $idPanier)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM status_panier WHERE id_panier = :id_panier");
         $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR );
@@ -233,6 +234,15 @@ class ProductsManager  extends Model{
         $stmt->closeCursor();
 
         return $result;
+    }
+
+    public function updateStatusCart(bool $status, mixed $idPanier): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE status_panier SET status = :status WHERE id_panier = :id_panier");
+        $stmt->bindParam(":status", $status, PDO::PARAM_BOOL);
+        $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+        $stmt->closeCursor();
     }
 
 }

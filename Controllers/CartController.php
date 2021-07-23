@@ -39,11 +39,14 @@ class CartController  extends MainController{
             if (empty($_SESSION["id_panier"])){
                 $_SESSION["id_panier"] = $id_panier;
             }
+            $cartStatus = $this->productsManager->viewStatusCart($_SESSION["id_panier"]);
             $aimCartProduct = $this->productsManager->aimViewCart($_SESSION["id_panier"], $id);
             if (empty($aimCartProduct)){
                 if (isset($_SESSION["id_panier"], $id, $_SESSION["idUser"])){
                     $this->productsManager->addToCart($_SESSION["id_panier"], $_SESSION["idUser"], $id);
-                    $this->productsManager->addToCartStatus($_SESSION["id_panier"]);
+                    if (empty($cartStatus["id_panier"])){
+                        $this->productsManager->addToCartStatus($_SESSION["id_panier"], $_SESSION["idUser"]);
+                    }
                     $_SESSION["alert"] = [
                         "message" => "Article bien ajouté à votre panier !",
                         "type" => SELF::ALERT_SUCCESS
@@ -82,6 +85,8 @@ class CartController  extends MainController{
     {
         $cart = $this->productsManager->viewCart($_SESSION["id_panier"]);
         $user = $this->usermanager->viewUser($_SESSION["login"]);
+        var_dump($_SESSION["login"]);
+        var_dump($_SESSION["idUser"]);
         $data_page = [
             "page_description" => "checkout",
             "page_title" => "checkout",
@@ -105,7 +110,10 @@ class CartController  extends MainController{
     public function success()
     {
         $viewStatusCart = $this->productsManager->viewStatusCart($_SESSION["id_panier"]);
-        if ($viewStatusCart["verrou"] == true){
+        if (!empty($_SESSION["paid"]) && $_SESSION["paid"] == true){
+            $this->productsManager->updateStatusCart(true, $_SESSION["id_panier"]);
+        }
+        if ($viewStatusCart["verrou"] == true && $_SESSION["paid"] == true){
             $_SESSION["alert"] = [
                 "message" => "Votre achat a bien été effectué !",
                 "type" => SELF::ALERT_SUCCESS
@@ -117,6 +125,9 @@ class CartController  extends MainController{
                 "template" => "Views/common/template.php"
             ];
             $this->newPage($data_page);
+            unset($_SESSION["id_panier"]);
+            unset($_SESSION["paid"]);
+            unset($_SESSION["payment_intent"]);
         } else {
             $_SESSION["alert"] = [
                 "message" => "Veuillez payer votre panier ! :) ",
@@ -134,9 +145,15 @@ class CartController  extends MainController{
 
     public function lockCart()
     {
+        if (!empty($_SESSION["id_panier"])){
         $viewStatusCart = $this->productsManager->viewStatusCart($_SESSION["id_panier"]);
-        if (isset($_GET["page"]) && $_GET["page"] === "checkout" && $viewStatusCart["verrou"] == false){
+        }
+        if (isset($_GET["page"]) && $_GET["page"] === "checkout" || $_GET["page"] === "stripeSuccess" && $viewStatusCart["verrou"] == false){
             $this->productsManager->lockCart(true, $_SESSION["id_panier"]);
+        } else {
+            if (!empty($_SESSION["id_panier"])){
+                $this->productsManager->lockCart(false, $_SESSION["id_panier"]);
+            }
         }
     }
 

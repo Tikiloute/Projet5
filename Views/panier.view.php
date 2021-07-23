@@ -60,4 +60,8 @@ $quantity = 0;
         <a href="<?=URL?>connect" class="btn btn-warning">Vous connecter</a>
     </div>
 <?php
+    } else {
+?>
+        <h3 class="text-primary text-center">Votre panier est vide</h3>
+<?php
     }

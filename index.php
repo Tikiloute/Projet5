@@ -56,6 +56,7 @@ try {
                 }
             } else {
                 $cartController->viewCart();
+                $cartController->lockCart();
                 break;
             }
 
@@ -126,7 +127,6 @@ try {
             break;
         
         case "disconnect": 
-            var_dump("disconnect");
             $connectionController->disconnect();
             break;
 

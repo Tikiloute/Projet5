@@ -59,6 +59,14 @@ class Usermanager  extends Model{
         $stmt->closeCursor();
     }
 
-
-    
+    public function purchaseHistory($userName)
+    {
+        $stmt = $this->pdo->prepare("SELECT DATE_FORMAT(p.date, '%d/%m/%Y %Hh%imin') AS date, p.quantity, u.nom, u.prix FROM panier p INNER JOIN status_panier s ON s.id_panier = p.id_panier INNER JOIN produit u ON u.id = p.id_produit WHERE p.id_utilisateur = :identifiant AND s.status = 1 AND s.verrou = 1 ORDER BY p.date ASC");
+        $stmt->bindParam(":identifiant", $userName , PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        
+        return $result;
+    }
 }
