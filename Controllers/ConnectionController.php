@@ -73,6 +73,26 @@ class ConnectionController extends MainController{
                 ];
                 $this->newPage($data_page);
         }
+        if (isset($_GET["modifyProfile"]) && $_GET["modifyProfile"] === "modified"){
+            
+            $purchaseHistory = $this->usermanager->purchaseHistory($_SESSION["idUser"]);
+
+                $data_page = [
+                    "page_description" => "Espace personnel",
+                    "page_title" => "Espace personnel",
+                    "purchaseHistory" => $purchaseHistory,
+                    "users" => $this->usermanager->viewUser($_SESSION["login"]),//ici nous avons toutes les informations de la personne connectée
+                    "view" => "Views/connected.view.php",
+                    "template" => "Views/common/template.php"
+                ];
+                $this->newPage($data_page);
+                
+                $this->usermanager->updateCustomerInformations($_SESSION["login"],$_POST["name"],$_POST["surname"], $_POST["address"], $_POST["email"]);
+            $_SESSION["alert"] = [
+                "message" => "Vos informations ont bien été mises à jour",
+                "type" => SELF::ALERT_SUCCESS
+            ];
+         }
     }
 
     public function createAccount()

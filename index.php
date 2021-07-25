@@ -69,6 +69,10 @@ try {
                 switch ($url[1]) {
 
                     case "connected" :
+                        if (isset($_GET["modifyProfile"]) && $_GET["modifyProfile"] === "modified"){
+                            header("Location:".URL."connect/connected");
+                        }
+
                         if (!empty($url[2])){
                             switch ($url[2]) {
 

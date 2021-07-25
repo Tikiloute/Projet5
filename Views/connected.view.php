@@ -11,9 +11,16 @@ if($users["role"] != "administrateur"){
     ?>
     <br>
     <br>
+    <div class="text-center">
+    <a href="<?= URL ?>connect/modifyAdministratorIdentify" class="btn btn-primary" type="submit" value="Modifier vos informations" >Modifier vos indentifiants</a>
+    </div>
+    <br>
+    <br>
     <h3>Vos informations personnelles :</h3>
     <br>
-
+<?php
+    if (!isset($_GET["modifyProfile"])){
+?>
     <div class="row justify-content-center">
         <div class="col-auto">
             <table class="table table-responsive">
@@ -39,13 +46,53 @@ if($users["role"] != "administrateur"){
     if (!empty($users["adresse_de_facturation"])){
 ?>
                     <td class="tableauInfos text-center text-capitalize"><?= $users["adresse_de_facturation"]?></td>
-<?php 
-    }
-?>
-
-                    <td><a href="<?= URL ?>connect/connected/modifyProfile" class="btn btn-outline-secondary" type="submit" value="Modifier vos informations" >Modifier vos informations</td>   
+                    <td><a href="<?= URL ?>connect/connected&modifyProfile=true" class="btn btn-outline-secondary" type="submit" value="Modifier vos informations" >Modifier vos informations</a></td>   
                 </tr>
             </table>
+<?php 
+    }
+} elseif (isset($_GET["modifyProfile"]) && $_GET["modifyProfile"] == true){
+?>
+<div class="row justify-content-center">
+    <form action="<?= URL ?>connect/connected&modifyProfile=modified" method="post" class="justify-content-center col-auto form-horizontal">
+        <div class="col-auto">
+            <table class="table table-responsive">
+                <tr>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre nom" ?></td>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse" ?></td>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse email"?></td>
+<?php 
+    if (!empty($users["adresse_de_facturation"])){
+?>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre adresse de facturation" ?></td>
+<?php
+    }
+?>
+                </tr>
+                <tr>
+                    <td><input class="form-control text-center w-auto" type="text" name="name" id="" value="<?= $users["nom"]?>"></td>
+                    <td><input class="form-control text-center w-auto" type="text" name="surname" id="" value="<?= $users["prenom"]?>"></td>
+                    <td><input class="inline-block form-control text-center w-auto" type="text" name="address" id="" value="<?= $users["adresse"]?>"></td>
+                    <td><input class="form-control text-center w-auto" type="email" name="email" id="" value="<?= $users["mail"]?>"></td>
+<?php 
+    if (!empty($users["adresse_de_facturation"])){
+?>
+                    <td><?= $users["adresse_de_facturation"]?></td>
+                    <td><input class="btn btn-primary" type="submit" value="Validez"><td>
+<?php
+    }
+?>
+                </tr>
+        </table>
+    </div>
+    </form>
+</div>
+<?php
+}
+?>
+
+
 <?php 
     if(empty($users["adresse_de_facturation"])){ // ajout de
 ?>
@@ -72,10 +119,10 @@ if($users["role"] != "administrateur"){
 
     <br>
     <br>
-    <?php
-    if (!empty($purchaseHistory)){
-    ?>
-    <h3>Historique de vos commandes :</h3>
+<?php
+if (!empty($purchaseHistory)){
+?>
+    <h3 class="text-center">Historique de vos commandes :</h3>
     <br>
     <div class="row justify-content-center">
         <div class="col-auto">
@@ -115,6 +162,7 @@ if($users["role"] != "administrateur"){
  */
     echo "<h2 class='text-center'>Bienvenue sur votre espace ".$_SESSION["login"].", ici vous pourrez administrer le site marchand";
 ?>
+<div class="text-center">
     <br>
     <br>
     <h4>Ajouter des produits</h4>
@@ -129,17 +177,13 @@ if($users["role"] != "administrateur"){
     <a href="<?= URL ?>connect/modifyProduct" type="button" class="btn btn-success">Modifier les produits</a>
     <br>
     <br>
-    <h4>Voir le chiffre d'affaire</h4>
-    <a href="<?= URL ?>connect/turnover" type="button" class="btn btn-success">Chiffre d'affaire</a>
-    <br>
-    <br>
     <h4>Voir le stock</h4>
     <a href="<?= URL ?>connect/stock" type="button" class="btn btn-success">Voir le stock</a>
     <br>
     <br>
     <h4>Modifier vos identifiants</h4>
     <a href="<?= URL ?>connect/modifyAdministratorIdentify" type="button" class="btn btn-success">Modifier votre identifiant / Mot de passe</a>
-
+</div>
 <?php
 /**
  * Fin partie administrateur-------------------------------------------------------------------------------------------------------

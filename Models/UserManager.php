@@ -69,4 +69,16 @@ class Usermanager  extends Model{
         
         return $result;
     }
+
+    public function updateCustomerInformations(mixed $identifiant, mixed $nom, mixed $prenom, mixed $adresse, mixed $mail): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE utilisateur SET nom = :nom, prenom = :prenom, adresse = :adresse, mail = :mail WHERE identifiant = :identifiant");
+        $stmt->bindParam(":nom", $nom, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":prenom", $prenom, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":adresse", $adresse, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":mail", $mail, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":identifiant", $identifiant , PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 }
