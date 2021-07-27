@@ -85,9 +85,27 @@ class ProductController  extends MainController{
     public function payWithStripe()
     {
         $data_page = [
-            "page_description" => "Page produit",
-            "page_title" => "Page produit",
+            "page_description" => "Checkout",
+            "page_title" => "Checkout",
             "view" => "Views/checkout.html",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
+    }
+
+    public function deleted()
+    {
+        $allProducts = $this->productsManager->allProductsNoOffset();
+        $this->productsManager->deleteProduct($_GET["id"]);
+        $_SESSION["alert"] = [
+            "message" => "Le produit a bien été supprimé",
+            "type" => SELF::ALERT_SUCCESS
+        ];
+        $data_page = [
+            "page_description" => "Supprimer des produits",
+            "page_title" => "Supprimer des produits",
+            "allProducts" => $allProducts,
+            "view" => "Views/deleteProduct.view.php",
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);

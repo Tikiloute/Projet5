@@ -165,8 +165,12 @@ if (!empty($purchaseHistory)){
 <div class="text-center">
     <br>
     <br>
-    <h4>Ajouter des produits</h4>
+    <h4>Ajouter un produit</h4>
     <a href="<?= URL ?>connect/addProduct" type="button" class="btn btn-success">Créer un produit</a>
+    <br>
+    <br>
+    <h4>Supprimer un produit</h4>
+    <a href="<?= URL ?>connect/deleteProduct" type="button" class="btn btn-success">supprimer un produit</a>
     <br>
     <br>
     <h4>Modifier le rôle d'un compte</h4>

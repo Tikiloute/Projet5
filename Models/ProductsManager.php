@@ -52,6 +52,16 @@ class ProductsManager  extends Model{
         return $result;
     }
 
+    public function allProductsNoOffset(): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM produit");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
     public function allProductsByCategory(int $idCategory, int $limit, int $offset): array //limit offset pour la pagination!
     {
         $stmt = $this->pdo->prepare("SELECT * FROM produit WHERE id_category = :id_category LIMIT :limit OFFSET :offset");
@@ -203,6 +213,14 @@ class ProductsManager  extends Model{
     {
         $stmt = $this->pdo->prepare(("DELETE FROM panier WHERE id_panier = :id_panier AND id_produit = :id_produit"));
         $stmt->bindParam(":id_panier", $idPanier, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function deleteProduct(int $idProduit): void
+    {
+        $stmt = $this->pdo->prepare(("DELETE FROM produit WHERE id = :id_produit"));
         $stmt->bindParam(":id_produit", $idProduit, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();

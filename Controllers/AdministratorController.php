@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 
-class AdministratorController  extends MainController{
+class AdministratorController extends MainController{
 
     public function stock()
     {
@@ -139,11 +139,25 @@ class AdministratorController  extends MainController{
             ];
         }
         $data_page = [
-            "page_description" => "Espace personnel",
-            "page_title" => "Espace personnel",
+            "page_description" => "Modifier les produits",
+            "page_title" => "Modifier les produits",
             "productCategory" => $productCategory,
             "categories" => $categories,
             "view" => "Views/modifyProduct.view.php",
+            "template" => "Views/common/template.php"
+        ];
+        $this->newPage($data_page);
+    }
+
+    public function deleteProduct()
+    {
+        $allProducts = $this->productsManager->allProductsNoOffset();
+        //var_dump($allProducts);
+        $data_page = [
+            "page_description" => "Supprimer des produits",
+            "page_title" => "Supprimer des produits",
+            "allProducts" => $allProducts,
+            "view" => "Views/deleteProduct.view.php",
             "template" => "Views/common/template.php"
         ];
         $this->newPage($data_page);

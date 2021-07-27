@@ -114,6 +114,14 @@ try {
                         $administratorController->modifyProduct();
                         break;
 
+                    case "deleteProduct" :
+                        $administratorController->deleteProduct();
+                        break;
+
+                    case "deleted" :
+                        $productController->deleted();
+                        break;
+
                     case "productModified" :
                         $administratorController->modifyProduct();
                         break;
