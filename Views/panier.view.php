@@ -26,14 +26,14 @@ $quantity = 0;
         <td class="mx-auto"><a href="<?=URL?>product&id=<?=$carts['id']?>"><img src="<?= URL."public/assets/images/".$carts["image"] ?>" alt="<?=$carts["description"]?>" class="col-md-4 col-sm-12 col-lg-6 col-xl-6 imageCart" ></a></td>
         <td>
             <form action="<?=URL?>cart/modifyQuantity" method="POST">
-                <label  for="numberProduct">Quantité souhaitée (Qté max : <?= $carts["stock"] ?>) : </label>
+                <label  for="numberProduct" class="logo">Quantité souhaitée (Qté max : <?= $carts["stock"] ?>) : </label>
                 <input type="hidden" name="idProduct" value=<?= $carts["id"]?>>
                 <input type="hidden" name="stock" value=<?= $carts["stock"]?>>
                 <input class="col-3 border rounded text-center mb-2" type="number" name="quantity" id="quantityProduct" value=<?php if ($carts["quantity"] > $carts["stock"]){ echo $carts["stock"]; } else { echo $carts["quantity"]; }?>>
                 <button type="submit" class="btn btn-primary">Modifier la quantité</button>
             </form>
         </td>
-        <td class="h4">Prix total : <?= $carts["prix"]*$carts["quantity"] ?>€ (prix unitaire : <?= $carts["prix"] ?>€)</td>
+        <td class="h4 logo">Prix total : <?= $carts["prix"]*$carts["quantity"] ?>€ (prix unitaire : <?= $carts["prix"] ?>€)</td>
         <td>
             <form action="<?=URL?>cart/deleteProductCart" method="POST">
                 <input type="hidden" name="idProduct" value=<?= $carts["id"]?>>

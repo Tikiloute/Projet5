@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 \Stripe\Stripe::setApiKey('sk_test_51JDYWyGStSoF0gzC9IZjXGtkdETZFGyVvnSSXgnE6IzwRYCsHlRDeIdkxo6CHHLhUngZUdUf0aJZI7x7eIApz4Yp00k4yrTfKR');
 
 // $_SESSION["payment_intent"] = $checkout_session->toArray()["payment_intent"];
+
 $paid =\Stripe\PaymentIntent::retrieve($_SESSION["payment_intent"])->toArray()["charges"]["data"][0]["paid"];
 
 // echo "<pre>";

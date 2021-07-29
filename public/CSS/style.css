@@ -1,3 +1,12 @@
+body{
+    background-color: white;
+    color: black;
+}
+
+body.black{
+    color : white !important;
+    background-color: black !important;
+}
 
 .tableauInfos {
     border: 1px solid black;

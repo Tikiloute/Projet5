@@ -23,7 +23,7 @@ if($users["role"] != "administrateur"){
 ?>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table class="table table-responsive">
+            <table class="table table-responsive table-light">
                 <tr>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre nom" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
@@ -56,7 +56,7 @@ if($users["role"] != "administrateur"){
 <div class="row justify-content-center">
     <form action="<?= URL ?>connect/connected&modifyProfile=modified" method="post" class="justify-content-center col-auto form-horizontal">
         <div class="col-auto">
-            <table class="table table-responsive">
+            <table class="table table-responsive table-light">
                 <tr>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre nom" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
@@ -103,8 +103,9 @@ if($users["role"] != "administrateur"){
 ?>
             <a href="<?= URL ?>connect/connected&billAddress" type="button" class="btn btn-success">Modifiez votre adresse de facturation</a>
 <?php
- } 
-    if(isset($_GET["billAddress"])){ // ajout de
+    } 
+
+    if(isset($_GET["billAddress"])){ 
 ?>
                 <form class="mt-2" action="<?= URL ?>connect/connected/billAddress&updateBillAddress=true" method="POST">
                     <input placeholder="Votre adresse de facturation" type="text" name="billAddress" id="billAddress">
@@ -114,8 +115,7 @@ if($users["role"] != "administrateur"){
     }
 ?>
         </div>
-        
-        <!-- onclick ajouter un champs puis gérer le champs avec $_POST et un update de la bdd -->
+
     </div>
 
     <br>
@@ -127,9 +127,9 @@ if (!empty($purchaseHistory)){
     <br>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table class="table table-responsive">
-                <tr>
-                    <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "produit" ?></td>
+            <table class="table table-responsive table-light">
+                <tr class=>
+                    <td class="tableauInfos text-center text-uppercase fw-bolder "><?= "produit" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "quantité" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "prix" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "date"?></td>
@@ -138,11 +138,12 @@ if (!empty($purchaseHistory)){
                     
                     if(isset($purchaseHistory)){
                         foreach ($purchaseHistory as $purchase){
+                            
                     ?>
                 <tr>
                     <td class="tableauInfos text-center"><?= $purchase["nom"] ?></td>
                     <td class="tableauInfos text-center"><?= $purchase["quantity"] ?></td>
-                    <td class="tableauInfos text-center"><?= $purchase["prix"]* $purchase["quantity"] ?>€</td>
+                    <td class="tableauInfos text-center"><?= $purchase["prix"] * $purchase["quantity"] ?>€</td>
                     <td class="tableauInfos text-center"><?= $purchase["date"] ?></td>
                 </tr>
                     <?php
