@@ -61,8 +61,8 @@ class ProductController  extends MainController{
 
     public function modifyQuantity()
     {
-        if (isset($_POST["quantity"], $_POST['idProduct'])){
-            if ($_POST["quantity"] > 0){
+        if (isset($_POST["quantity"], $_POST['idProduct'], $_POST["stock"])){
+            if ($_POST["quantity"] > 0 && $_POST["quantity"] <= $_POST["stock"]){
                 $_SESSION["alert"] = [
                     "message" => "Vous avez bien modifié le nombre d'article souhaité",
                     "type" => SELF::ALERT_SUCCESS
@@ -70,7 +70,7 @@ class ProductController  extends MainController{
                 $this->productsManager->addQuantityProduct($_POST["quantity"], $_POST['idProduct']);    
             } else {
                 $_SESSION["alert"] = [
-                    "message" => "Vous ne pouvez pas avoir une quantité à 0",
+                    "message" => "Vous ne pouvez pas avoir une quantité à 0 ou supérieure à notre stock",
                     "type" => SELF::ALERT_DANGER
                 ];
             }

@@ -40,7 +40,9 @@ class CartController  extends MainController{
                 $_SESSION["id_panier"] = $id_panier;
             }
             $cartStatus = $this->productsManager->viewStatusCart($_SESSION["id_panier"]);
+            $oneProduct = $this->productsManager->showOneProduct($id);
             $aimCartProduct = $this->productsManager->aimViewCart($_SESSION["id_panier"], $id);
+            var_dump($oneProduct[0]["stock"]);
             if (empty($aimCartProduct)){
                 if (isset($_SESSION["id_panier"], $id, $_SESSION["idUser"])){
                     $this->productsManager->addToCart($_SESSION["id_panier"], $_SESSION["idUser"], $id);
@@ -54,24 +56,60 @@ class CartController  extends MainController{
                     if (!empty($_POST["numberProduct"])){
                         if (isset($aimCartProduct[0]["quantity"])){
                             $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
-                            $this->productsManager->addQuantityProduct($addQuantity, $id);
+                            if ($addQuantity > $oneProduct[0]["stock"]){
+                                $addQuantity = $oneProduct[0]["stock"];
+                            }
+                            if ($aimCartProduct[0]["quantity"] <= $oneProduct[0]["stock"] && $addQuantity <= $oneProduct[0]["stock"]){
+                                $this->productsManager->addQuantityProduct($addQuantity, $id);
+                            } else {
+                                $_SESSION["alert"] = [
+                                    "message" => "Nous n'avons pas assez de stock !",
+                                    "type" => SELF::ALERT_DANGER
+                                ];
+                            }
                         } else {
-                            $addQuantity =  $_POST["numberProduct"];
-                            $this->productsManager->addQuantityProduct($addQuantity, $id);
+                            $addQuantity = $_POST["numberProduct"];
+                            if ($addQuantity <= $oneProduct[0]["stock"]){
+                                $this->productsManager->addQuantityProduct($addQuantity, $id);
+                            } else {
+                                $_SESSION["alert"] = [
+                                    "message" => "Nous n'avons pas assez de stock nous avons ajouté le maximum de produit à votre panier! ",
+                                    "type" => SELF::ALERT_WARNING
+                                ];
+                                $addQuant = $oneProduct[0]["stock"];
+                                $this->productsManager->addQuantityProduct($addQuant, $id);
+                            }
                         }
                     }    
+                } else {
+                    $_SESSION["alert"] = [
+                        "message" => "Nous n'avons pas assez de stock nous avons ajouté le maximum de produit à votre panier! ",
+                        "type" => SELF::ALERT_WARNING
+                    ];
+                    $addQuantity = $oneProduct[0]["stock"];
+                    $this->productsManager->addQuantityProduct($addQuantity, $id);
                 }
             }else {
-                if (empty($_POST["numberProduct"])){
-                    $addQuantity = $aimCartProduct[0]["quantity"] +1;
+                    if (empty($_POST["numberProduct"])){
+                        $addQuantity = $aimCartProduct[0]["quantity"] +1;
+                    } else {
+                        $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
+                    }
+                if ($addQuantity <= $oneProduct[0]["stock"]){
+
+                    $this->productsManager->addQuantityProduct($addQuantity, $id);
+                    $_SESSION["alert"] = [
+                        "message" => "Vous avez bien rajouté un exemplaire à cet article dans votre panier !",
+                        "type" => SELF::ALERT_SUCCESS
+                    ];
                 } else {
-                    $addQuantity = $aimCartProduct[0]["quantity"] + $_POST["numberProduct"];
+                    $addQuantity = $oneProduct[0]["stock"];
+                    $this->productsManager->addQuantityProduct($addQuantity, $id);
+                    $_SESSION["alert"] = [
+                        "message" => "Nous n'avons pas assez de stock 0!",
+                        "type" => SELF::ALERT_DANGER
+                    ];
                 }
-                $this->productsManager->addQuantityProduct($addQuantity, $id);
-                $_SESSION["alert"] = [
-                    "message" => "Vous avez bien rajouté un exemplaire à cet article dans votre panier !",
-                    "type" => SELF::ALERT_SUCCESS
-                ];
             }
         } else {
             $_SESSION["alert"] = [
@@ -125,6 +163,7 @@ class CartController  extends MainController{
                 "template" => "Views/common/template.php"
             ];
             $this->newPage($data_page);
+            
             unset($_SESSION["id_panier"]);
             unset($_SESSION["paid"]);
             unset($_SESSION["payment_intent"]);

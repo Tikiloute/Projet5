@@ -1,4 +1,3 @@
-
 <div class="col-12">
       <div class="oneProduct row g-0 rounded align-middle overflow-hidden flex-md-row col-sm-12 mb-4">
         <div class="col-4 d-lg-block me-5 oneProduct">
@@ -11,6 +10,10 @@
   if ($oneProduct[0]["stock"] < 10){
 ?>
           <div class="mb-1 text-danger">Attention il ne reste plus que <?= $oneProduct[0]["stock"]?>  exemplaires de ce produit</div>
+<?php
+  } else {
+?>
+          <div class="mb-1 text-success">Actuellement en stock (<?= $oneProduct[0]["stock"]?> disponibles)</div>
 <?php
   }
 ?>
