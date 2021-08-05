@@ -5,11 +5,11 @@ body{
 
 body.black{
     color : white !important;
-    background-color: black !important;
+    background-color: #2d2d2d !important;
 }
 
 .tableauInfos {
-    border: 1px solid black;
+    border: 1px solid #2d2d2d;
 }
 
 .card{

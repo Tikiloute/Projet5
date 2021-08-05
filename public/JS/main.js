@@ -1,9 +1,10 @@
 
 let bouton = document.querySelector(".bouton");
 let logo = document.querySelector(".logo");
-let table = document.querySelector(".table-light");
+let card = document.querySelector(".cardNight");
 
-let darkMode = new DarkMode(bouton, logo, table);
+
+let darkMode = new DarkMode(bouton, logo, card);
 
 darkMode.darkmode();
 darkMode.localStorageDarkMode();

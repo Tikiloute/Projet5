@@ -14,7 +14,7 @@ if (!empty($products)){
 ?>
         <div class="col-md-4 col-12 text-center container">
             <div class="custom-column">
-                <div class="card" style="width: 18rem;">
+                <div class="card cardNight" style="width: 18rem;">
                     <div class="card-image">
                         <a href="<?=URL?>product&id=<?=$product['id']?>"><img src="<?= URL."public/assets/images/".$product["image"] ?>"  class="mt-2 card-img-top" alt=<?= $product['description']?>></a>
                     </div>
