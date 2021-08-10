@@ -1,16 +1,15 @@
 class DarkMode {
 
-    constructor(bouton ,logo, card){
+    constructor(bouton ,logo){
         this.bouton = bouton;
         this.logo = logo;
-        this.card = card;
     }
 
     darkmode(){
         this.bouton.addEventListener("click", this.colorChange);
     }
 
-    colorChange(){
+    colorChange() {
 
         if (document.body.classList.contains("white")){
             document.body.classList.add("black");
@@ -33,7 +32,7 @@ class DarkMode {
 
     }
 
-    localStorageDarkMode(){
+    localStorageDarkMode() {
 
         if (localStorage.getItem("darkMode") === "black"){
 
@@ -43,6 +42,7 @@ class DarkMode {
             bouton.style.backgroundColor = "yellow";
             bouton.style.color = "black";
             this.logo.style.color = "white";
+            
 
         } else if (localStorage.getItem("darkMode") === "white"){
 
@@ -52,7 +52,6 @@ class DarkMode {
             bouton.style.backgroundColor = "#2d2d2d";
             bouton.style.color = "white";
             this.logo.style.color = "black";
-
         }
     }
 

@@ -6,20 +6,20 @@
 <?php
     }
 ?>
-<div class="container ">
+<div class="container text-center container-fluid">
   <div class="row ">
 <?php 
 if (!empty($products)){
     foreach ($products as $product){
 ?>
-        <div class="col-md-4 col-12 text-center container">
+        <div class="col-md-4 sm-col-12 mx-auto col-12 text-center container">
             <div class="custom-column">
-                <div class="card cardNight" style="width: 18rem;">
+                <div class="card mx-auto" style="width: auto;">
                     <div class="card-image">
-                        <a href="<?=URL?>product&id=<?=$product['id']?>"><img src="<?= URL."public/assets/images/".$product["image"] ?>"  class="mt-2 card-img-top" alt=<?= $product['description']?>></a>
+                        <a href="<?=URL?>product&id=<?=$product['id']?>"><img src="<?= URL."public/assets/images/".$product["image"] ?>"  class="mt-2 card-img-top photo" alt=<?= $product['description']?>></a>
                     </div>
-                    <div class="card-body  text-center">
-                        <p class="h6 card-text"><?= $product["nom"] ?></p>
+                    <div class="card-body  text-center white">
+                        <p class="h6 card-text white"><?= $product["nom"] ?></p>
                     </div>
                         <ul class="list-group list-group-flush">
                             <li class="h6 list-group-item">Prix : <?= $product['prix'] ?>€ </li>

@@ -122,6 +122,7 @@ if($users["role"] != "administrateur"){
     <br>
 <?php
 if (!empty($purchaseHistory)){
+
 ?>
     <h3 class="text-center">Historique de vos commandes :</h3>
     <br>
@@ -135,12 +136,26 @@ if (!empty($purchaseHistory)){
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "date"?></td>
                 </tr>
                     <?php
-                    
                     if(isset($purchaseHistory)){
+                        $idPanier = null;
                         foreach ($purchaseHistory as $purchase){
-                            
+                            $className = null;
+
+                            if ($purchase["id_panier"] !== $idPanier){
+                                $className = "purchase";
+                            }
+
+                            $idPanier = $purchase["id_panier"];
+                        if ($className == true){
                     ?>
-                <tr>
+                    <tr>
+                        <td class= "text-center" colspan="4">N° commande : <?= $idPanier?></td>
+                    </tr>
+
+                    <?php
+                        }
+                    ?>
+                <tr class="<?= $className?>">
                     <td class="tableauInfos text-center"><?= $purchase["nom"] ?></td>
                     <td class="tableauInfos text-center"><?= $purchase["quantity"] ?></td>
                     <td class="tableauInfos text-center"><?= $purchase["prix"] * $purchase["quantity"] ?>€</td>
@@ -159,6 +174,7 @@ if (!empty($purchaseHistory)){
  * Fin partie client -------------------------------------------------------------------------------------------------------------
  */
 } else {
+
 /**
  * Début partie administrateur ----------------------------------------------------------------------------------------------------
  */
