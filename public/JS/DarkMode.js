@@ -41,8 +41,7 @@ class DarkMode {
             this.bouton.innerHTML = "Mode clair";
             bouton.style.backgroundColor = "yellow";
             bouton.style.color = "black";
-            this.logo.style.color = "white";
-            
+            this.logo.style.color = "white"; 
 
         } else if (localStorage.getItem("darkMode") === "white"){
 

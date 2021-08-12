@@ -1,12 +1,12 @@
 <h1 class="text-center">Vérification avant paiement</h1>
 <br>
 <br>
-<h2  class="text-center"><ins>Détail de la commande</ins></h2>
+<h2  class="text-center">Détail de la commande</h2>
 <br>
 <br>
 <table class="table">
     <tr class="text-center">
-        <th>Nom de l'article</th>
+        <th >Nom de l'article</th>
         <th>Quantité</th>
         <th>Prix</th>
     </tr>
@@ -16,7 +16,7 @@
     $price += $carts["prix"] * $carts["quantity"];
 ?>
     <tr class="text-center">
-        <td><?= $carts["nom"]?></td>
+        <td class="tabColor"><?= $carts["nom"]?></td>
         <td><?= $carts["quantity"]?></td>
 <?php
     if ($carts["quantity"] > 1){

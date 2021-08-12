@@ -148,6 +148,15 @@ class CartController  extends MainController{
     public function success()
     {
         $viewStatusCart = $this->productsManager->viewStatusCart($_SESSION["id_panier"]);
+        $cart = $this->productsManager->viewCart($_SESSION["id_panier"]);
+        $stock = null;
+        foreach ($cart as $carts){
+            $product = $this->productsManager->showOneProduct($carts["id_produit"]);
+            foreach ($product as $products){
+                $stock = $products["stock"] - $carts["quantity"];
+                $this->productsManager->updateStock($stock, $carts["id_produit"]);
+            }
+        }
         if (!empty($_SESSION["paid"]) && $_SESSION["paid"] == true){
             $this->productsManager->updateStatusCart(true, $_SESSION["id_panier"]);
         }
@@ -167,6 +176,7 @@ class CartController  extends MainController{
             unset($_SESSION["id_panier"]);
             unset($_SESSION["paid"]);
             unset($_SESSION["payment_intent"]);
+
         } else {
             $_SESSION["alert"] = [
                 "message" => "Veuillez payer votre panier ! :) ",
