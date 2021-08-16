@@ -21,9 +21,9 @@ if($users["role"] != "administrateur"){
 <?php
     if (!isset($_GET["modifyProfile"])){
 ?>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center stock">
         <div class="col-auto">
-            <table class="table table-responsive table-light">
+            <table class="table table-responsive stock">
                 <tr>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre nom" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
@@ -53,10 +53,10 @@ if($users["role"] != "administrateur"){
     }
 } elseif (isset($_GET["modifyProfile"]) && $_GET["modifyProfile"] == true){
 ?>
-<div class="row justify-content-center">
+<div class="row justify-content-center account-info stock">
     <form action="<?= URL ?>connect/connected&modifyProfile=modified" method="post" class="justify-content-center col-auto form-horizontal">
         <div class="col-auto">
-            <table class="table table-responsive table-light">
+            <table class="table table-responsive">
                 <tr>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre nom" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "Votre prénom" ?></td>
@@ -128,7 +128,7 @@ if (!empty($purchaseHistory)){
     <br>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table class="table table-responsive table-light">
+            <table class="table table-responsive">
                 <tr class=>
                     <td class="tableauInfos text-center text-uppercase fw-bolder "><?= "produit" ?></td>
                     <td class="tableauInfos text-center text-uppercase fw-bolder"><?= "quantité" ?></td>

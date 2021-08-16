@@ -1,5 +1,5 @@
 <h1>Page des stocks</h1>
-<div class="row justify-content-center">
+<div class="row justify-content-center stock">
     <div class="col-auto">
         <table class="table table-responsive">
             <tr>
